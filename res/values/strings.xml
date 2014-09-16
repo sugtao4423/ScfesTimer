@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">スクフェスタイマー</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="start">決定</string>
+    <string name="stop">キャンセル</string>
+    <string-array name="Item">
+        <item >満タン通知</item>
+        <item >5分前通知</item>
+        <item >10分前通知</item>
+    </string-array>
+        <string name="setting">設定</string>
+        <string name="notisetting">通知設定</string>
+        <string name="vibe">バイブレーション</string>
+        <string name="vibe_exp">通知時にあなたに会いたくて震えます</string>
+        <string name="sound">サウンド</string>
+        <string name="sound_exp">通知時に音が鳴り、あなただけではなく周りの人も気づくでしょう</string>
+        <string name="led">LED</string>
+        <string name="led_exp">通知時にLEDを光らせてあなたに気づいてもらいたいアピールします</string>
+        <string name="FAQ">よくあるかもしれない質問など</string>
+        <string name="explain">
+            Q.ボタンとか灰色で押せないし入力もできないよ！\n
+            A.クリアかキャンセルボタンを押せばできるようになると思います\n
+            \n
+            Q.LP回復までの残り時間表示できないの？\n
+            A.俺だって表示するようにしたい...\n
+            とりあえず今のところは我慢してくださいごめんなさい。なんでもしますから！（するとは言っていない）\n
+            \n
+            Q.ん？なんか通知来なかったぞ...？\n
+            A.端末再起動しませんでしたか？再起動すると通知はリセットされます\n
+            \n
+            FAQはなにかありましたら追加する予定です。\n
+            \n
+            \n
+            作者について。\n
+            今回初めてAndroidアプリを作りました。\n
+            ﾌﾟﾖｸﾞﾗﾐﾝｸﾞも初心者です。\n
+            いろいろ至らない部分もあると思いますが、ここをこうしたほうがいいとかこういうバグあったよ！などありましたらレビューに書いてください。\n
+            \n
+            ストアに上げるのもこれが初めてなので、レビューに書いてもらったほうがいいのか、それともメアド書いてそっちに送ってもらったほうがいいのかもわかっていないし、考えている状況です。\n
+            \n\n\n\n
+            最後までお読みいただきありがとうございました。\n
+            バージョンアップとかある（と思う）のでこれからもよろしくお願いします。\n
+            \n
+            作者Twitterアカウント：@sugtao4423\n
+            アイコン作者アカウント：@tsubasaneko83\n
+            \n
+            
+        </string>
+        <string name="assyen">✋(   ͡° ͜ʖ ͡° )ｱｯｼｪﾝﾃ</string>
+        <string name="sakusya">作者のTwitter垢に飛ぶかもしれない可能性が微レ存</string>
+        <string name="twitter">ﾄｩｲｯﾀｰ</string>
+        <string name="nhi_">∩(´；ヮ；｀)∩ンヒィ～</string>
+        <string name="icon_sakusya">アイコン作者のTwitter垢に飛ぶ（確信）</string>
+        <string name="update">変更履歴</string>
+        <string name="update_exp">バージョンアップでの変更点について</string>
+        <string name="update_activity">
+			"バージョン1.2.1    9月16日公開"\n
+            ・なんのために作ったのかよくわからない隠し機能を実装\n
+            （暗号とかそういうのに憧れてる人は見ると幸せになれる可能性が微レ存）\n
+            \n
+            ・設定カテゴリーの「設定」を「通知設定」に変更\n
+            \n
+            ・変更履歴のフォントサイズを20spから18spに変更\n
+            \n
+            ーーーーーーーーーーーーーーーーー\n
+			\n 
+            "バージョン1.2    9月12日公開"\n
+			・未実装だった「Twitterでこのアプリを共有する」ボタンの実装が完了しました\n
+			\n
+			べっ、別に開発サボってたわけじゃないんだからね！\n
+			\n
+			・LPの値が（目標LP≦現在LP）の場合、トーストを表示させるようにしました\n
+			\n
+			・（開発者向け）\n
+			SharedPreferences内でなぜかStringで管理してActivityでBooleanに戻すというわけのわからないことをやっていたので
+			Boolean管理にしてソースを減らしました\n
+			\n
+			ーーーーーーーーーーーーーーーーー\n
+			\n            
+            "バージョン1.1.1    9月4日公開"\n
+            ・通知が設定されたら「LP回復時間確認」ボタンを押せないようにしました\n
+            \n
+			ーーーーーーーーーーーーーーーーー\n
+			\n
+            "バージョン1.1    9月2日公開"\n
+            ・タイマーが終了したら自動的に入力が行えるよう改良しました\n
+            \n
+            ・作者、アイコン作者へのTwitter垢飛ばしボタン追加\n
+            \n
+            ・変更点の画面追加。\n
+            \n
+			ーーーーーーーーーーーーーーーーー\n
+            \n
+            "バージョン1.0    8月28日公開"\n
+            ・初めて///のアプリ公開\n
+        </string>
+        <string name="share">共有</string>
+        <string name="thisAppShare">Twitterでこのアプリを共有する</string>
+        <string name="thisAppShare_exp">末尾のアドレスはPlayストアへのリンクです</string>
+        <string name="PrefMODE">Preferences</string>
+        <string-array name="ListItem">
+            <item >com.tao.scfestimer_preferences.xml</item>
+            <item >saveEditText.xml</item>
+            <item >saveLP.xml</item>
+            <item >saveTIME.xml</item>
+        </string-array>
+
+</resources>

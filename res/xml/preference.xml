@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/notisetting">
+        <CheckBoxPreference
+            android:key="sound_preference"
+            android:title="@string/sound"
+            android:summary="@string/sound_exp"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="vibrate_preference"
+            android:title="@string/vibe"
+            android:summary="@string/vibe_exp"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:title="@string/led"
+            android:key="led_preference"
+            android:summary="@string/led_exp"
+            android:defaultValue="true"/>
+        
+    </PreferenceCategory>
+  		<PreferenceCategory android:title="@string/twitter">
+        <Preference android:title="@string/assyen"
+            android:key="assyente"
+            android:summary="@string/sakusya" />
+		<Preference android:key="nhi_"
+		    android:title="@string/nhi_"
+		    android:summary="@string/icon_sakusya"/>
+    
+</PreferenceCategory>
+		<PreferenceCategory android:title="@string/share">
+		<Preference android:title="@string/thisAppShare"
+		    android:summary="@string/thisAppShare_exp"
+		    android:key="share" />
+</PreferenceCategory>
+		<PreferenceCategory android:title="@string/update">
+		<Preference android:title="@string/update"
+		    android:summary="@string/update_exp"
+		    android:key="update"/>
+    
+</PreferenceCategory>
+    
+
+</PreferenceScreen>

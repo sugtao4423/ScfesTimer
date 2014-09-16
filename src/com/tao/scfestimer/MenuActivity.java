@@ -1,0 +1,122 @@
+package com.tao.scfestimer;
+
+import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.DialogInterface.OnClickListener;
+import android.net.Uri;
+import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
+import android.widget.EditText;
+
+
+public class MenuActivity extends PreferenceActivity {
+	
+	
+	protected void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		
+		getFragmentManager().beginTransaction().replace(android.R.id.content,  new MyPreferencesFragment()).commit();
+		ActionBar actionbar = getActionBar();
+		actionbar.setHomeButtonEnabled(true);
+	}
+	
+	public static class MyPreferencesFragment extends PreferenceFragment {
+		public void onCreate(Bundle savedInstanceState){
+			super.onCreate(savedInstanceState);
+			addPreferencesFromResource(R.xml.preference);
+			
+			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+			boolean enable_prefs = pref.getBoolean("DisCheckBox", true);
+			
+			Preference sound_pref = findPreference("sound_preference");
+			Preference vibrate_pref = findPreference("vibrate_preference");
+			Preference led_pref = findPreference("led_preference");
+			
+			sound_pref.setEnabled(enable_prefs);
+			vibrate_pref.setEnabled(enable_prefs);
+			led_pref.setEnabled(enable_prefs);
+			
+			//作者Twitter垢飛ばす
+			Preference assyente = findPreference("assyente");
+			assyente.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+
+				@Override
+				public boolean onPreferenceClick(Preference preference) {
+					Uri uri = Uri.parse("https://twitter.com/sugtao4423");
+					Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+					startActivity(intent);
+					return false;
+				}
+			});
+			//アイコン作者Twitter垢飛ばす
+			Preference nhi_ = findPreference("nhi_");
+			nhi_.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+
+				@Override
+				public boolean onPreferenceClick(Preference preference) {
+					Uri uri = Uri.parse("https://twitter.com/tsubasaneko83");
+					Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+					startActivity(intent);
+					return false;
+				}
+				
+			});
+			//変更履歴に飛ばす
+			Preference update = findPreference("update");
+			update.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+
+				@Override
+				public boolean onPreferenceClick(Preference preference) {
+					Intent intent = new Intent(getActivity(), Update.class);
+					startActivity(intent);
+					return false;
+				}
+				
+			});
+			//シェア
+			Preference share = findPreference("share");
+			share.setOnPreferenceClickListener(new OnPreferenceClickListener(){
+
+				@Override
+				public boolean onPreferenceClick(Preference preference) {
+					final EditText EditTweet = new EditText(getActivity());
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+					.setTitle("コメントオナシャス！！")
+					.setView(EditTweet)
+					.setPositiveButton("ツイート", new OnClickListener(){
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							//ツイートボタン処理
+							String Tweet = EditTweet.getText().toString();
+							if(Tweet.matches(".*上上下下左右左右BA.*")){
+								startActivity(new Intent(getActivity(), PrefMODE.class));
+								}else{
+							String URL = "http://twitter.com/share?text=" + Tweet + " " + "http://bit.ly/1BfxIDl";
+							Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL));
+							startActivity(intent);
+						}
+						}
+					});
+					builder.setNegativeButton("キャンセル", new OnClickListener(){
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							return;
+						}
+					});
+					builder.create().show();
+					
+					return false;
+				}
+			});
+		}
+	}
+}
