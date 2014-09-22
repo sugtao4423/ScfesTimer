@@ -1,5 +1,7 @@
 package com.tao.scfestimer;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -25,6 +27,8 @@ public class MenuActivity extends PreferenceActivity {
 		getFragmentManager().beginTransaction().replace(android.R.id.content,  new MyPreferencesFragment()).commit();
 		ActionBar actionbar = getActionBar();
 		actionbar.setHomeButtonEnabled(true);
+		//アナリティクスstart
+		EasyTracker.getInstance(this).activityStart(this);
 	}
 	
 	public static class MyPreferencesFragment extends PreferenceFragment {
@@ -118,5 +122,10 @@ public class MenuActivity extends PreferenceActivity {
 				}
 			});
 		}
+	}
+	//アナリティクスstop
+	public void onStop(){
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);
 	}
 }

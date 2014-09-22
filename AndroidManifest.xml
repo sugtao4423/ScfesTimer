@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tao.scfestimer"
-    android:versionCode="5"
-    android:versionName="1.2.1" >
+    android:versionCode="6"
+    android:versionName="1.3" >
 
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -30,7 +32,6 @@
         <activity android:name="FAQ" android:label="@string/FAQ" android:screenOrientation="portrait"></activity>
         <activity android:name="Update" android:label="@string/update"></activity>
         <activity android:name="PrefMODE" android:label="@string/PrefMODE"></activity>
-        <activity android:name="ListDialog"></activity>
     </application>
 
 </manifest>

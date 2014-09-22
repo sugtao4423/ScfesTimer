@@ -1,5 +1,7 @@
 package com.tao.scfestimer;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -19,6 +21,8 @@ public class PrefMODE extends Activity {
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pref_mode);
+		//アナリティクスstart
+		EasyTracker.getInstance(this).activityStart(this);
 		
 		final ListView listview = (ListView)findViewById(R.id.ListView);
 		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -116,6 +120,12 @@ public class PrefMODE extends Activity {
 	
 	public void toast(){
 		Toast.makeText(getApplicationContext(), "この画面ではBACKキーを押すと設定画面に戻ります", Toast.LENGTH_LONG).show();
+	}
+	
+	//アナリティクスstop
+	public void onStop(){
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);
 	}
 	
 //	public void PrefDefault(){

@@ -2,6 +2,8 @@ package com.tao.scfestimer;
 
 import java.util.Calendar;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -29,6 +31,8 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		Once();
+		//アナリティクスstart
+		EasyTracker.getInstance(this).activityStart(this);
 		loadLP();
 		loadTIME();
 		loadEditTextBoolean();
@@ -466,13 +470,15 @@ public class MainActivity extends Activity {
 		}
 	}
 	
-	
-	
-	
 	public void background(View v){
 		//背景タップでキーボードを隠す
 		InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 		inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+	}
+	//アナリティクスstop
+	public void onStop(){
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);
 	}
 	
 	private final int Menu1 = Menu.FIRST;
