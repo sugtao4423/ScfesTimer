@@ -42,10 +42,12 @@ public class MenuActivity extends PreferenceActivity {
 			Preference sound_pref = findPreference("sound_preference");
 			Preference vibrate_pref = findPreference("vibrate_preference");
 			Preference led_pref = findPreference("led_preference");
+			Preference AMPM = findPreference("AMPM");
 			
 			sound_pref.setEnabled(enable_prefs);
 			vibrate_pref.setEnabled(enable_prefs);
 			led_pref.setEnabled(enable_prefs);
+			AMPM.setEnabled(enable_prefs);
 			
 			//作者Twitter垢飛ばす
 			Preference assyente = findPreference("assyente");

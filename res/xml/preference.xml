@@ -17,6 +17,9 @@
             android:summary="@string/led_exp"
             android:defaultValue="true"/>
         
+        
+    </PreferenceCategory><PreferenceCategory android:title="@string/AMPM">
+        <CheckBoxPreference android:key="AMPM" android:title="@string/AMPM" android:summary="@string/AMPM_exp"/>
     </PreferenceCategory>
   		<PreferenceCategory android:title="@string/twitter">
         <Preference android:title="@string/assyen"

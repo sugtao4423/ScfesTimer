@@ -78,9 +78,29 @@ public class MainActivity extends Activity {
     		
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
-    		String tmp = "目標LP回復時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
+    		
+    		SharedPreferences ampm = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    		Boolean AMPM = ampm.getBoolean("AMPM", false);
+    		
+    		String tmp;
+    		if(AMPM == true){
+    			String am_pm = null;
+    			switch(cal.get(Calendar.AM_PM)){
+    			case 0:
+    				am_pm = "午前";
+    				break;
+    			case 1:
+    				am_pm = "午後";
+    				break;
+    			}
+    		tmp = "目標LP回復時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
+    	            + "日" + am_pm + cal.get(Calendar.HOUR) + "時"
+    	            + cal.get(Calendar.MINUTE) + "分";
+    		}else{
+    		tmp = "目標LP回復時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
     	            + "日" + cal.get(Calendar.HOUR_OF_DAY) + "時"
     	            + cal.get(Calendar.MINUTE) + "分";
+    		}
     		time.setText(tmp);
     		
     		//プリファレンスに保存
@@ -116,9 +136,29 @@ public class MainActivity extends Activity {
     		
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
-    		String tmp = "目標LP回復通知時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
+    		
+    		SharedPreferences ampm = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    		Boolean AMPM = ampm.getBoolean("AMPM", false);
+    		
+    		String tmp;
+    		if(AMPM == true){
+    			String am_pm = null;
+    			switch(cal.get(Calendar.AM_PM)){
+    			case 0:
+    				am_pm = "午前";
+    				break;
+    			case 1:
+    				am_pm = "午後";
+    				break;
+    			}
+    		tmp = "目標LP回復通知時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
+        	            + "日" + am_pm + cal.get(Calendar.HOUR) + "時"
+        	            + cal.get(Calendar.MINUTE) + "分";
+    		}else{
+    		tmp = "目標LP回復通知時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
     	            + "日" + cal.get(Calendar.HOUR_OF_DAY) + "時"
     	            + cal.get(Calendar.MINUTE) + "分";
+    		}
     		time.setText(tmp);
     		
     		//プリファレンスに保存
@@ -154,9 +194,29 @@ public class MainActivity extends Activity {
     		
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
-    		String tmp = "目標LP回復通知時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
+    		
+    		SharedPreferences ampm = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    		Boolean AMPM = ampm.getBoolean("AMPM", false);
+    		
+    		String tmp;
+    		if(AMPM == true){
+    			String am_pm = null;
+    			switch(cal.get(Calendar.AM_PM)){
+    			case 0:
+    				am_pm = "午前";
+    				break;
+    			case 1:
+    				am_pm = "午後";
+    				break;
+    		}
+    			tmp = "目標LP回復通知時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
+        	            + "日" + am_pm + cal.get(Calendar.HOUR) + "時"
+        	            + cal.get(Calendar.MINUTE) + "分";
+    		}else{
+    		tmp = "目標LP回復通知時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
     	            + "日" + cal.get(Calendar.HOUR_OF_DAY) + "時"
     	            + cal.get(Calendar.MINUTE) + "分";
+    		}
     		time.setText(tmp);
     		
     		//プリファレンスに保存
@@ -255,8 +315,29 @@ public class MainActivity extends Activity {
 		
 		Calendar cal = Calendar.getInstance();
 	    cal.add(Calendar.MINUTE, LeftLPTime);
-	    String tmp = "目標LP回復時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
-	               + "日" + cal.get(Calendar.HOUR_OF_DAY) + "時" + cal.get(Calendar.MINUTE) + "分";
+	    
+	    SharedPreferences ampm = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		Boolean AMPM = ampm.getBoolean("AMPM", false);
+		
+		String tmp;
+		if(AMPM == true){
+			String am_pm = null;
+			switch(cal.get(Calendar.AM_PM)){
+			case 0:
+				am_pm = "午前";
+				break;
+			case 1:
+				am_pm = "午後";
+				break;
+			}
+		tmp = "目標LP回復時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
+	            + "日" + am_pm + cal.get(Calendar.HOUR) + "時"
+	            + cal.get(Calendar.MINUTE) + "分";
+		}else{
+		tmp = "目標LP回復時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
+	            + "日" + cal.get(Calendar.HOUR_OF_DAY) + "時"
+	            + cal.get(Calendar.MINUTE) + "分";
+		}
 	    time.setText(tmp);
 		}catch (Exception e){
 			Toast.makeText(getApplicationContext(), "ん？", Toast.LENGTH_SHORT).show();

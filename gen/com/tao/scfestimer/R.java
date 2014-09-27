@@ -56,6 +56,8 @@ public final class R {
         public static final int main=0x7f0a0000;
     }
     public static final class string {
+        public static final int AMPM=0x7f05001c;
+        public static final int AMPM_exp=0x7f05001d;
         public static final int FAQ=0x7f05000e;
         public static final int PrefMODE=0x7f05001b;
         public static final int action_settings=0x7f050003;
