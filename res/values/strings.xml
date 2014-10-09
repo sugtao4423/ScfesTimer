@@ -57,6 +57,16 @@
         <string name="update">変更履歴</string>
         <string name="update_exp">バージョンアップでの変更点について</string>
         <string name="update_activity">
+            "バージョン1.5    10月9日公開"\n
+            ・隠し機能を割と実用的なものに変えました（ユーザー目線になってみた）\n
+            隠し機能を開くためのヒントは「某キチガイTwitterクライアント」です\n
+            \n
+            前々から言ってるけど残り時間表示は必ず実装します\n
+            リアルタイムで残り秒数が動いたりしなくたっていいよね！\n
+            それなら早く実装できると思われます\n
+            \n
+            ーーーーーーーーーーーーーーーーー\n
+			\n 
 			"バージョン1.4    9月27日公開"\n
 			・回復時刻を午前、午後で表記する機能を実装\n
             残り時間の表示の実装はかなり先になるかもしれません。すいません。\n
@@ -114,14 +124,8 @@
         <string name="share">共有</string>
         <string name="thisAppShare">Twitterでこのアプリを共有する</string>
         <string name="thisAppShare_exp">末尾のアドレスはPlayストアへのリンクです</string>
-        <string name="PrefMODE">Preferences</string>
-        <string-array name="ListItem">
-            <item >com.tao.scfestimer_preferences.xml</item>
-            <item >saveEditText.xml</item>
-            <item >saveLP.xml</item>
-            <item >saveTIME.xml</item>
-        </string-array>
             <string name="AMPM">午前/午後表示</string>
             <string name="AMPM_exp">こっちのほうがいいんダルルォ！？</string>
+            <string name="HideFunction">隠し機能</string>
 
 </resources>

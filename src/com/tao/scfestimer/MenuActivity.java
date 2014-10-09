@@ -103,7 +103,7 @@ public class MenuActivity extends PreferenceActivity {
 							//ツイートボタン処理
 							String Tweet = EditTweet.getText().toString();
 							if(Tweet.matches(".*上上下下左右左右BA.*")){
-								startActivity(new Intent(getActivity(), PrefMODE.class));
+								startActivity(new Intent(getActivity(), HideFunction.class));
 								}else{
 							String URL = "http://twitter.com/share?text=" + Tweet + " " + "http://bit.ly/1BfxIDl";
 							Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL));

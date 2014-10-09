@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tao.scfestimer"
-    android:versionCode="7"
-    android:versionName="1.4" >
+    android:versionCode="9"
+    android:versionName="1.5.1" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -28,10 +28,11 @@
         
         <receiver android:name="Notifier02"></receiver>
         <receiver android:name="Notifier03"></receiver>
-        <activity android:name="MenuActivity" android:label="@string/setting" android:screenOrientation="portrait" android:launchMode="singleTask"></activity>
+        <receiver android:name="Notifier04"></receiver><activity android:name="MenuActivity" android:label="@string/setting" android:screenOrientation="portrait" android:launchMode="singleTask"></activity>
         <activity android:name="FAQ" android:label="@string/FAQ" android:screenOrientation="portrait"></activity>
-        <activity android:name="Update" android:label="@string/update"></activity>
-        <activity android:name="PrefMODE" android:label="@string/PrefMODE"></activity>
+        <activity android:name="Update" android:label="@string/update" android:screenOrientation="portrait"></activity>
+        <activity android:name="HideFunction" android:label="@string/HideFunction" android:screenOrientation="portrait"></activity>
+        
     </application>
 
 </manifest>

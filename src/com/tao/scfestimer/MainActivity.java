@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -37,6 +38,7 @@ public class MainActivity extends Activity {
 		loadTIME();
 		loadEditTextBoolean();
 		NotificationEnable();
+		loadHideFunction();
 	}
 	public int LeftLPTime;
 
@@ -68,7 +70,7 @@ public class MainActivity extends Activity {
         
         //if(目標LP≦現在LP)
         if(maxlp <= nowlp){
-        	Toast.makeText(getApplicationContext(), "もう回復してるんですがそれは...", Toast.LENGTH_SHORT).show();
+        	Toast.makeText(this, "もう回復してるんですがそれは...", Toast.LENGTH_SHORT).show();
         }else{
         
         if(spi==0){
@@ -79,7 +81,7 @@ public class MainActivity extends Activity {
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
     		
-    		SharedPreferences ampm = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    		SharedPreferences ampm = PreferenceManager.getDefaultSharedPreferences(this);
     		Boolean AMPM = ampm.getBoolean("AMPM", false);
     		
     		String tmp;
@@ -126,7 +128,7 @@ public class MainActivity extends Activity {
     		//設定項目を変えさせない
     		DisableCheckBox();
     		    		
-    		Toast.makeText(getApplicationContext(), "LP回復時に通知します", Toast.LENGTH_SHORT).show();
+    		Toast.makeText(this, "LP回復時に通知します", Toast.LENGTH_SHORT).show();
         }
         if(spi==1){
         	LeftLPTime = LeftLPTime - 5;
@@ -137,7 +139,7 @@ public class MainActivity extends Activity {
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
     		
-    		SharedPreferences ampm = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    		SharedPreferences ampm = PreferenceManager.getDefaultSharedPreferences(this);
     		Boolean AMPM = ampm.getBoolean("AMPM", false);
     		
     		String tmp;
@@ -184,7 +186,7 @@ public class MainActivity extends Activity {
     		//設定項目を変えさせない
     		DisableCheckBox();
     		
-    		Toast.makeText(getApplicationContext(), "LP回復5分前に通知します", Toast.LENGTH_SHORT).show();
+    		Toast.makeText(this, "LP回復5分前に通知します", Toast.LENGTH_SHORT).show();
         }
         if(spi==2){
         	LeftLPTime = LeftLPTime - 10;
@@ -195,7 +197,7 @@ public class MainActivity extends Activity {
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
     		
-    		SharedPreferences ampm = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    		SharedPreferences ampm = PreferenceManager.getDefaultSharedPreferences(this);
     		Boolean AMPM = ampm.getBoolean("AMPM", false);
     		
     		String tmp;
@@ -242,11 +244,70 @@ public class MainActivity extends Activity {
     		//設定項目を変えさせない
     		DisableCheckBox();
     		
-    		Toast.makeText(getApplicationContext(), "LP回復10分前に通知します", Toast.LENGTH_SHORT).show();
+    		Toast.makeText(this, "LP回復10分前に通知します", Toast.LENGTH_SHORT).show();
+        }
+        if(spi==3){
+        	SharedPreferences DefPref = PreferenceManager.getDefaultSharedPreferences(this);
+        	int customlefttime = DefPref.getInt("customLeftTime", 0);
+        	LeftLPTime = LeftLPTime - customlefttime;
+        	//呼び出す日時の設定
+    		Calendar triggerTime = Calendar.getInstance();
+    		triggerTime.add(Calendar.MINUTE, LeftLPTime);
+    		
+    		Calendar cal = Calendar.getInstance();
+    		cal.add(Calendar.MINUTE, LeftLPTime);
+    		
+    		Boolean AMPM = DefPref.getBoolean("AMPM", false);
+    		
+    		String tmp;
+    		if(AMPM == true){
+    			String am_pm = null;
+    			switch(cal.get(Calendar.AM_PM)){
+    			case 0:
+    				am_pm = "午前";
+    				break;
+    			case 1:
+    				am_pm = "午後";
+    				break;
+    		}
+    			tmp = "目標LP回復通知時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
+        	            + "日" + am_pm + cal.get(Calendar.HOUR) + "時"
+        	            + cal.get(Calendar.MINUTE) + "分";
+    		}else{
+    		tmp = "目標LP回復通知時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
+    	            + "日" + cal.get(Calendar.HOUR_OF_DAY) + "時"
+    	            + cal.get(Calendar.MINUTE) + "分";
+    		}
+    		time.setText(tmp);
+    		
+    		//プリファレンスに保存
+    		//プリファレンスの準備
+    		SharedPreferences pref = getSharedPreferences("saveTIME", MODE_PRIVATE);
+    		//Editorオブジェクト取得
+    		Editor editor = pref.edit();
+    		//TIMEというキーで最大LPを登録
+    		editor.putString("TIME", tmp);
+    		//書き込み
+    		editor.commit();
+    		
+    		//設定した日時で発行するIntent生成
+    		Intent intent = new Intent(this, Notifier04.class);
+    		PendingIntent sender = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    				
+    		//日時と発行するIntentをAlarmManagerにセット
+    		AlarmManager manager = (AlarmManager)getSystemService(ALARM_SERVICE);
+    		manager.set(AlarmManager.RTC_WAKEUP, triggerTime.getTimeInMillis(), sender);
+    		
+    		//EditTextを入力不可にする
+    		NoEditText();
+    		//設定項目を変えさせない
+    		DisableCheckBox();
+    		
+    		Toast.makeText(this, "LP回復" + customlefttime + "分前に通知します", Toast.LENGTH_SHORT).show();
         }
         }
 		}catch (Exception e){
-			Toast.makeText(getApplicationContext(), "ん？", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "ん？", Toast.LENGTH_SHORT).show();
 			stop(null);
 		}
 		saveLP();
@@ -269,7 +330,7 @@ public class MainActivity extends Activity {
 		YesEditText();
 		//設定項目変更OK
 		EnableCheckBox();
-		Toast.makeText(getApplicationContext(), "キャンセルしました", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "キャンセルしました", Toast.LENGTH_SHORT).show();
 	}
 	
 	public void cancel1(){
@@ -316,7 +377,7 @@ public class MainActivity extends Activity {
 		Calendar cal = Calendar.getInstance();
 	    cal.add(Calendar.MINUTE, LeftLPTime);
 	    
-	    SharedPreferences ampm = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+	    SharedPreferences ampm = PreferenceManager.getDefaultSharedPreferences(this);
 		Boolean AMPM = ampm.getBoolean("AMPM", false);
 		
 		String tmp;
@@ -539,15 +600,34 @@ public class MainActivity extends Activity {
 		}
 	}
 	
+	public void loadHideFunction(){
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean HideFunction = pref.getBoolean("HideFunction", false);
+		if(HideFunction == true){
+			int custom = pref.getInt("customLeftTime", 0);
+			String CUSTOM = String.valueOf(custom);
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			adapter.add("満タン通知");
+			adapter.add("5分前通知");
+			adapter.add("10分前通知");
+			adapter.add(CUSTOM + "分前通知");
+			Spinner spi = (Spinner)findViewById(R.id.spinner1);
+			spi.setAdapter(adapter);
+		}
+	}
+	
 	public void Once(){
 		//デフォPreference
 		SharedPreferences DefPre = PreferenceManager.getDefaultSharedPreferences(this);
-		//saveEditText
-		SharedPreferences saveEditText = getSharedPreferences("saveEditText", MODE_PRIVATE);
-		Boolean Once = DefPre.getBoolean("OneStart", false);
-		if(Once == false){
+		boolean Once = DefPre.getBoolean("OneStart", true);
+		if(Once == true){
+			DefPre.edit().clear().commit();
+			SharedPreferences saveEditText = getSharedPreferences("saveEditText", MODE_PRIVATE);
 			saveEditText.edit().clear().commit();
-			DefPre.edit().putBoolean("OneStart", true).commit();
+			
+			DefPre.edit().putBoolean("OneStart", false).commit();
+			Toast.makeText(this, "アップデートしてから初回起動なので設定を初期化しました(初回のみ)", Toast.LENGTH_LONG).show();
 		}
 	}
 	
@@ -555,6 +635,11 @@ public class MainActivity extends Activity {
 		//背景タップでキーボードを隠す
 		InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 		inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+	}
+	
+	public void onResume(){
+		super.onResume();
+		loadHideFunction();
 	}
 	//アナリティクスstop
 	public void onStop(){
