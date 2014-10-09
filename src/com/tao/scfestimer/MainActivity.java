@@ -77,7 +77,7 @@ public class MainActivity extends Activity {
         if(spi==0){
         	//呼び出す日時の設定
     		Calendar triggerTime = Calendar.getInstance();
-    		triggerTime.add(Calendar.SECOND, LeftLPTime);
+    		triggerTime.add(Calendar.MINUTE, LeftLPTime);
     		
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
@@ -135,7 +135,7 @@ public class MainActivity extends Activity {
         	LeftLPTime = LeftLPTime - 5;
         	//呼び出す日時の設定
     		Calendar triggerTime = Calendar.getInstance();
-    		triggerTime.add(Calendar.SECOND, LeftLPTime);
+    		triggerTime.add(Calendar.MINUTE, LeftLPTime);
     		
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
@@ -193,7 +193,7 @@ public class MainActivity extends Activity {
         	LeftLPTime = LeftLPTime - 10;
         	//呼び出す日時の設定
     		Calendar triggerTime = Calendar.getInstance();
-    		triggerTime.add(Calendar.SECOND, LeftLPTime);
+    		triggerTime.add(Calendar.MINUTE, LeftLPTime);
     		
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
@@ -253,7 +253,7 @@ public class MainActivity extends Activity {
         	LeftLPTime = LeftLPTime - customlefttime;
         	//呼び出す日時の設定
     		Calendar triggerTime = Calendar.getInstance();
-    		triggerTime.add(Calendar.SECOND, LeftLPTime);
+    		triggerTime.add(Calendar.MINUTE, LeftLPTime);
     		
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
@@ -631,14 +631,14 @@ public class MainActivity extends Activity {
 	public void Once(){
 		//デフォPreference
 		SharedPreferences DefPre = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean Once = DefPre.getBoolean("OneStart", false);
+		boolean Once = DefPre.getBoolean("Once", false);
 		if(Once == false){
 			stop(null);
 			DefPre.edit().clear().commit();
 			SharedPreferences saveEditText = getSharedPreferences("saveEditText", MODE_PRIVATE);
 			saveEditText.edit().clear().commit();
 			
-			DefPre.edit().putBoolean("OneStart", true).commit();
+			DefPre.edit().putBoolean("Once", true).commit();
 			Toast.makeText(this, "アップデートしてから初回起動なので設定を初期化しました(初回のみ)", Toast.LENGTH_LONG).show();
 		}
 	}
