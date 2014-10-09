@@ -32,13 +32,13 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		Once();
+		loadHideFunction();
 		//アナリティクスstart
 		EasyTracker.getInstance(this).activityStart(this);
 		loadLP();
 		loadTIME();
 		loadEditTextBoolean();
 		NotificationEnable();
-		loadHideFunction();
 	}
 	public int LeftLPTime;
 
@@ -67,6 +67,7 @@ public class MainActivity extends Activity {
 		
 		// 選択されているアイテムのIndexを取得
         int spi = spinner.getSelectedItemPosition();
+        //Toast.makeText(this, spi, Toast.LENGTH_SHORT).show();
         
         //if(目標LP≦現在LP)
         if(maxlp <= nowlp){
@@ -76,7 +77,7 @@ public class MainActivity extends Activity {
         if(spi==0){
         	//呼び出す日時の設定
     		Calendar triggerTime = Calendar.getInstance();
-    		triggerTime.add(Calendar.MINUTE, LeftLPTime);
+    		triggerTime.add(Calendar.SECOND, LeftLPTime);
     		
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
@@ -134,7 +135,7 @@ public class MainActivity extends Activity {
         	LeftLPTime = LeftLPTime - 5;
         	//呼び出す日時の設定
     		Calendar triggerTime = Calendar.getInstance();
-    		triggerTime.add(Calendar.MINUTE, LeftLPTime);
+    		triggerTime.add(Calendar.SECOND, LeftLPTime);
     		
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
@@ -192,7 +193,7 @@ public class MainActivity extends Activity {
         	LeftLPTime = LeftLPTime - 10;
         	//呼び出す日時の設定
     		Calendar triggerTime = Calendar.getInstance();
-    		triggerTime.add(Calendar.MINUTE, LeftLPTime);
+    		triggerTime.add(Calendar.SECOND, LeftLPTime);
     		
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
@@ -252,7 +253,7 @@ public class MainActivity extends Activity {
         	LeftLPTime = LeftLPTime - customlefttime;
         	//呼び出す日時の設定
     		Calendar triggerTime = Calendar.getInstance();
-    		triggerTime.add(Calendar.MINUTE, LeftLPTime);
+    		triggerTime.add(Calendar.SECOND, LeftLPTime);
     		
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
@@ -318,6 +319,7 @@ public class MainActivity extends Activity {
 		cancel1();
 		cancel2();
 		cancel3();
+		cancel4();
 		
 		//プリファレンスの準備
 		SharedPreferences pref2 = getSharedPreferences("saveTIME", MODE_PRIVATE);
@@ -350,6 +352,13 @@ public class MainActivity extends Activity {
 	public void cancel3(){
 		AlarmManager manager = (AlarmManager)getSystemService(ALARM_SERVICE);
 		Intent intent = new Intent(this, Notifier03.class);
+		PendingIntent sender = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		manager.cancel(sender);
+	}
+	
+	public void cancel4(){
+		AlarmManager manager = (AlarmManager)getSystemService(ALARM_SERVICE);
+		Intent intent = new Intent(this, Notifier04.class);
 		PendingIntent sender = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		manager.cancel(sender);
 	}
@@ -496,7 +505,6 @@ public class MainActivity extends Activity {
 		spi.setEnabled(false);
 		
 		int SpiItem = spi.getSelectedItemPosition();
-		String SpinnerItem = String.valueOf(SpiItem);
 		
 		//プリファレンスの準備
 		SharedPreferences pref = getSharedPreferences("saveEditText", MODE_PRIVATE);
@@ -509,7 +517,7 @@ public class MainActivity extends Activity {
 		.putBoolean("start", false)
 		.putBoolean("check", false)
 		.putBoolean("spinner", false)
-		.putString("SpinnerItem", SpinnerItem);
+		.putInt("SpinnerItem", SpiItem);
 		//書き込み
 		editor.commit();
 	}
@@ -559,10 +567,8 @@ public class MainActivity extends Activity {
 		Boolean StartEna = pref.getBoolean("start", true);
 		Boolean CheckEna = pref.getBoolean("check", true);
 		Boolean Spinner = pref.getBoolean("spinner", true);
-		String SpinnerItem = pref.getString("SpinnerItem", "0");
-		
-		int SPINNERITEM = Integer.valueOf(SpinnerItem);
-		
+		int SpinnerItem = pref.getInt("SpinnerItem", 0);
+				
 		MaxLP.setEnabled(MaxEna);
 		NowLP.setEnabled(NowEna);
 		MaxLP.setFocusable(MaxFocus);
@@ -570,7 +576,7 @@ public class MainActivity extends Activity {
 		Start.setEnabled(StartEna);
 		Check.setEnabled(CheckEna);
 		spi.setEnabled(Spinner);
-		spi.setSelection(SPINNERITEM);
+		spi.setSelection(SpinnerItem);
 	}
 	
 	public void DisableCheckBox(){
@@ -603,16 +609,21 @@ public class MainActivity extends Activity {
 	public void loadHideFunction(){
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean HideFunction = pref.getBoolean("HideFunction", false);
+		Spinner spi = (Spinner)findViewById(R.id.spinner1);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		if(HideFunction == true){
 			int custom = pref.getInt("customLeftTime", 0);
 			String CUSTOM = String.valueOf(custom);
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			adapter.add("満タン通知");
 			adapter.add("5分前通知");
 			adapter.add("10分前通知");
 			adapter.add(CUSTOM + "分前通知");
-			Spinner spi = (Spinner)findViewById(R.id.spinner1);
+			spi.setAdapter(adapter);
+		}else{
+			adapter.add("満タン通知");
+			adapter.add("5分前通知");
+			adapter.add("10分前通知");
 			spi.setAdapter(adapter);
 		}
 	}
@@ -620,13 +631,14 @@ public class MainActivity extends Activity {
 	public void Once(){
 		//デフォPreference
 		SharedPreferences DefPre = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean Once = DefPre.getBoolean("OneStart", true);
-		if(Once == true){
+		boolean Once = DefPre.getBoolean("OneStart", false);
+		if(Once == false){
+			stop(null);
 			DefPre.edit().clear().commit();
 			SharedPreferences saveEditText = getSharedPreferences("saveEditText", MODE_PRIVATE);
 			saveEditText.edit().clear().commit();
 			
-			DefPre.edit().putBoolean("OneStart", false).commit();
+			DefPre.edit().putBoolean("OneStart", true).commit();
 			Toast.makeText(this, "アップデートしてから初回起動なので設定を初期化しました(初回のみ)", Toast.LENGTH_LONG).show();
 		}
 	}
@@ -637,10 +649,6 @@ public class MainActivity extends Activity {
 		inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
 	}
 	
-	public void onResume(){
-		super.onResume();
-		loadHideFunction();
-	}
 	//アナリティクスstop
 	public void onStop(){
 		super.onStop();

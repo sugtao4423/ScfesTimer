@@ -68,7 +68,6 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/button1"
         android:layout_alignParentLeft="true"
-        android:entries="@array/Item"
         android:textSize="20sp" />
 
     <Button

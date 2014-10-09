@@ -8,9 +8,6 @@
 package com.tao.scfestimer;
 
 public final class R {
-    public static final class array {
-        public static final int Item=0x7f080000;
-    }
     public static final class attr {
     }
     public static final class bool {
@@ -32,19 +29,19 @@ public final class R {
         public static final int scfes=0x7f020001;
     }
     public static final class id {
-        public static final int HideFunction_time=0x7f0b000b;
-        public static final int MaxLP=0x7f0b0003;
-        public static final int NowLP=0x7f0b0002;
-        public static final int PrefText=0x7f0b0004;
-        public static final int action_settings=0x7f0b000c;
-        public static final int button1=0x7f0b0001;
-        public static final int button2=0x7f0b0000;
-        public static final int button3=0x7f0b0008;
-        public static final int button4=0x7f0b0009;
-        public static final int spinner1=0x7f0b0006;
-        public static final int textView1=0x7f0b000a;
-        public static final int textView2=0x7f0b0005;
-        public static final int textView3=0x7f0b0007;
+        public static final int HideFunction_time=0x7f0a000b;
+        public static final int MaxLP=0x7f0a0003;
+        public static final int NowLP=0x7f0a0002;
+        public static final int PrefText=0x7f0a0004;
+        public static final int action_settings=0x7f0a000c;
+        public static final int button1=0x7f0a0001;
+        public static final int button2=0x7f0a0000;
+        public static final int button3=0x7f0a0008;
+        public static final int button4=0x7f0a0009;
+        public static final int spinner1=0x7f0a0006;
+        public static final int textView1=0x7f0a000a;
+        public static final int textView2=0x7f0a0005;
+        public static final int textView3=0x7f0a0007;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -53,7 +50,7 @@ public final class R {
         public static final int update=0x7f030003;
     }
     public static final class menu {
-        public static final int main=0x7f0a0000;
+        public static final int main=0x7f090000;
     }
     public static final class string {
         public static final int AMPM=0x7f05001b;
@@ -109,11 +106,11 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f090000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f090001;
+        public static final int AppTheme=0x7f080001;
     }
     public static final class xml {
         public static final int preference=0x7f040000;

@@ -16,7 +16,7 @@ import android.support.v4.app.NotificationCompat;
 public class Notifier02 extends BroadcastReceiver {
 
 	@Override
-	public void onReceive(Context content, Intent intent2) {
+	public void onReceive(Context content, Intent intent) {
 		//Intent作成
 		Intent sendIntent = new Intent(content, MainActivity.class);
 		PendingIntent sender = PendingIntent.getActivity(content, 0, sendIntent, 0);

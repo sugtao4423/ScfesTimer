@@ -6,11 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="start">決定</string>
     <string name="stop">キャンセル</string>
-    <string-array name="Item">
-        <item >満タン通知</item>
-        <item >5分前通知</item>
-        <item >10分前通知</item>
-    </string-array>
         <string name="setting">設定</string>
         <string name="notisetting">通知設定</string>
         <string name="vibe">バイブレーション</string>
@@ -57,6 +52,11 @@
         <string name="update">変更履歴</string>
         <string name="update_exp">バージョンアップでの変更点について</string>
         <string name="update_activity">
+            "バージョン1.5.1    10月10日公開"\n
+            ・隠し機能に多少のバグがあったので改善しました（ただ通知時の文字が違うだけで機能には問題ありませんでした）\n
+            \n
+            ーーーーーーーーーーーーーーーーー\n
+			\n 
             "バージョン1.5    10月9日公開"\n
             ・隠し機能を割と実用的なものに変えました（ユーザー目線になってみた）\n
             隠し機能を開くためのヒントは「某キチガイTwitterクライアント」です\n
