@@ -68,4 +68,15 @@
         android:onClick="Sign"
         android:text="登録" />
 
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:onClick="Disable"
+        android:text="無効化する" />
+
 </RelativeLayout>

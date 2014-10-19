@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -67,6 +68,38 @@ public class HideFunction extends Activity {
 			Toast.makeText(this, "先に有効化してください", Toast.LENGTH_SHORT).show();
 			InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 			inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+		}
+		}catch(Exception e){
+			Toast.makeText(this, "ん？", Toast.LENGTH_SHORT).show();
+		}
+	}
+	
+	public void Disable(View v){
+		try{
+		final SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean HideFunction = pref.getBoolean("HideFunction", false);
+		if(HideFunction == false)
+			Toast.makeText(this, "有効化もされてないんですが...", Toast.LENGTH_SHORT).show();
+		else{
+			AlertDialog.Builder builder = new AlertDialog.Builder(this)
+			.setTitle("隠し機能を無効化しますか？")
+			.setMessage("無効化する場合、アプリを再起動します。")
+			.setPositiveButton("無効化", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Editor editor = pref.edit();
+					editor.putBoolean("HideFunction", false).commit();
+					finish();
+					android.os.Process.killProcess(android.os.Process.myPid());
+				}
+			})
+			.setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					return;
+				}
+			});
+			builder.create().show();
 		}
 		}catch(Exception e){
 			Toast.makeText(this, "ん？", Toast.LENGTH_SHORT).show();
