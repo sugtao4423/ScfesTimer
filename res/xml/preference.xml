@@ -39,7 +39,10 @@
 		<Preference android:title="@string/update"
 		    android:summary="@string/update_exp"
 		    android:key="update"/>
+		
     
+</PreferenceCategory><PreferenceCategory android:title="@string/other">
+    <Preference android:title="@string/coop" android:key="coop"/>
 </PreferenceCategory>
     
 

@@ -86,6 +86,16 @@ public class MenuActivity extends PreferenceActivity {
 				}
 				
 			});
+			//ご協力お願います
+			Preference coop = findPreference("coop");
+			coop.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+				@Override
+				public boolean onPreferenceClick(Preference preference) {
+					Intent intent = new Intent(getActivity(), Coop.class);
+					startActivity(intent);
+					return false;
+				}
+			});
 			//シェア
 			Preference share = findPreference("share");
 			share.setOnPreferenceClickListener(new OnPreferenceClickListener(){

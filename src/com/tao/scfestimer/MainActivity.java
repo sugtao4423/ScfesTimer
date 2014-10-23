@@ -6,8 +6,10 @@ import com.google.analytics.tracking.android.EasyTracker;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -41,7 +43,9 @@ public class MainActivity extends Activity {
 		NotificationEnable();
 	}
 	public int LeftLPTime;
-
+	public int MONTH, DATE, HOUR_OF_DAY, HOUR, MINUTE;
+	public String am_pm;
+	
 	//アラーム開始
 	public void start(View v){
 		
@@ -49,7 +53,6 @@ public class MainActivity extends Activity {
 		EditText MaxLP = (EditText)findViewById(R.id.MaxLP);
 		EditText NowLP = (EditText)findViewById(R.id.NowLP);
 		Spinner spinner = (Spinner)findViewById(R.id.spinner1);
-		TextView time = (TextView)findViewById(R.id.textView3);
 		
 		try{
 		//文字から数値に変換
@@ -67,7 +70,6 @@ public class MainActivity extends Activity {
 		
 		// 選択されているアイテムのIndexを取得
         int spi = spinner.getSelectedItemPosition();
-        //Toast.makeText(this, spi, Toast.LENGTH_SHORT).show();
         
         //if(目標LP≦現在LP)
         if(maxlp <= nowlp){
@@ -82,39 +84,22 @@ public class MainActivity extends Activity {
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
     		
-    		SharedPreferences ampm = PreferenceManager.getDefaultSharedPreferences(this);
-    		Boolean AMPM = ampm.getBoolean("AMPM", false);
+    		switch(cal.get(Calendar.AM_PM)){
+			case 0:
+				am_pm = "午前";
+				break;
+			case 1:
+				am_pm = "午後";
+				break;
+			}
     		
-    		String tmp;
-    		if(AMPM == true){
-    			String am_pm = null;
-    			switch(cal.get(Calendar.AM_PM)){
-    			case 0:
-    				am_pm = "午前";
-    				break;
-    			case 1:
-    				am_pm = "午後";
-    				break;
-    			}
-    		tmp = "目標LP回復時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
-    	            + "日" + am_pm + cal.get(Calendar.HOUR) + "時"
-    	            + cal.get(Calendar.MINUTE) + "分";
-    		}else{
-    		tmp = "目標LP回復時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
-    	            + "日" + cal.get(Calendar.HOUR_OF_DAY) + "時"
-    	            + cal.get(Calendar.MINUTE) + "分";
-    		}
-    		time.setText(tmp);
+    		MONTH = cal.get(Calendar.MONTH) + 1;
+    		DATE = cal.get(Calendar.DATE);
+    		HOUR_OF_DAY = cal.get(Calendar.HOUR_OF_DAY);
+    		HOUR = cal.get(Calendar.HOUR);
+    		MINUTE = cal.get(Calendar.MINUTE);
     		
-    		//プリファレンスに保存
-    		//プリファレンスの準備
-    		SharedPreferences pref = getSharedPreferences("saveTIME", MODE_PRIVATE);
-    		//Editorオブジェクト取得
-    		Editor editor = pref.edit();
-    		//TIMEというキーで最大LPを登録
-    		editor.putString("TIME", tmp);
-    		//書き込み
-    		editor.commit();
+    		SetResultTime();
     		
     		//設定した日時で発行するIntent生成
     		Intent intent = new Intent(this, Notifier.class);
@@ -140,39 +125,22 @@ public class MainActivity extends Activity {
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
     		
-    		SharedPreferences ampm = PreferenceManager.getDefaultSharedPreferences(this);
-    		Boolean AMPM = ampm.getBoolean("AMPM", false);
+    		switch(cal.get(Calendar.AM_PM)){
+			case 0:
+				am_pm = "午前";
+				break;
+			case 1:
+				am_pm = "午後";
+				break;
+			}
     		
-    		String tmp;
-    		if(AMPM == true){
-    			String am_pm = null;
-    			switch(cal.get(Calendar.AM_PM)){
-    			case 0:
-    				am_pm = "午前";
-    				break;
-    			case 1:
-    				am_pm = "午後";
-    				break;
-    			}
-    		tmp = "目標LP回復通知時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
-        	            + "日" + am_pm + cal.get(Calendar.HOUR) + "時"
-        	            + cal.get(Calendar.MINUTE) + "分";
-    		}else{
-    		tmp = "目標LP回復通知時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
-    	            + "日" + cal.get(Calendar.HOUR_OF_DAY) + "時"
-    	            + cal.get(Calendar.MINUTE) + "分";
-    		}
-    		time.setText(tmp);
+    		MONTH = cal.get(Calendar.MONTH) + 1;
+    		DATE = cal.get(Calendar.DATE);
+    		HOUR_OF_DAY = cal.get(Calendar.HOUR_OF_DAY);
+    		HOUR = cal.get(Calendar.HOUR);
+    		MINUTE = cal.get(Calendar.MINUTE);
     		
-    		//プリファレンスに保存
-    		//プリファレンスの準備
-    		SharedPreferences pref = getSharedPreferences("saveTIME", MODE_PRIVATE);
-    		//Editorオブジェクト取得
-    		Editor editor = pref.edit();
-    		//TIMEというキーで最大LPを登録
-    		editor.putString("TIME", tmp);
-    		//書き込み
-    		editor.commit();
+    		SetResultTime();
     		
     		//設定した日時で発行するIntent生成
     		Intent intent = new Intent(this, Notifier02.class);
@@ -198,39 +166,22 @@ public class MainActivity extends Activity {
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
     		
-    		SharedPreferences ampm = PreferenceManager.getDefaultSharedPreferences(this);
-    		Boolean AMPM = ampm.getBoolean("AMPM", false);
+    		switch(cal.get(Calendar.AM_PM)){
+			case 0:
+				am_pm = "午前";
+				break;
+			case 1:
+				am_pm = "午後";
+				break;
+			}
     		
-    		String tmp;
-    		if(AMPM == true){
-    			String am_pm = null;
-    			switch(cal.get(Calendar.AM_PM)){
-    			case 0:
-    				am_pm = "午前";
-    				break;
-    			case 1:
-    				am_pm = "午後";
-    				break;
-    		}
-    			tmp = "目標LP回復通知時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
-        	            + "日" + am_pm + cal.get(Calendar.HOUR) + "時"
-        	            + cal.get(Calendar.MINUTE) + "分";
-    		}else{
-    		tmp = "目標LP回復通知時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
-    	            + "日" + cal.get(Calendar.HOUR_OF_DAY) + "時"
-    	            + cal.get(Calendar.MINUTE) + "分";
-    		}
-    		time.setText(tmp);
+    		MONTH = cal.get(Calendar.MONTH) + 1;
+    		DATE = cal.get(Calendar.DATE);
+    		HOUR_OF_DAY = cal.get(Calendar.HOUR_OF_DAY);
+    		HOUR = cal.get(Calendar.HOUR);
+    		MINUTE = cal.get(Calendar.MINUTE);
     		
-    		//プリファレンスに保存
-    		//プリファレンスの準備
-    		SharedPreferences pref = getSharedPreferences("saveTIME", MODE_PRIVATE);
-    		//Editorオブジェクト取得
-    		Editor editor = pref.edit();
-    		//TIMEというキーで最大LPを登録
-    		editor.putString("TIME", tmp);
-    		//書き込み
-    		editor.commit();
+    		SetResultTime();
     		
     		//設定した日時で発行するIntent生成
     		Intent intent = new Intent(this, Notifier03.class);
@@ -258,38 +209,22 @@ public class MainActivity extends Activity {
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
     		
-    		Boolean AMPM = DefPref.getBoolean("AMPM", false);
+    		switch(cal.get(Calendar.AM_PM)){
+			case 0:
+				am_pm = "午前";
+				break;
+			case 1:
+				am_pm = "午後";
+				break;
+			}
     		
-    		String tmp;
-    		if(AMPM == true){
-    			String am_pm = null;
-    			switch(cal.get(Calendar.AM_PM)){
-    			case 0:
-    				am_pm = "午前";
-    				break;
-    			case 1:
-    				am_pm = "午後";
-    				break;
-    		}
-    			tmp = "目標LP回復通知時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
-        	            + "日" + am_pm + cal.get(Calendar.HOUR) + "時"
-        	            + cal.get(Calendar.MINUTE) + "分";
-    		}else{
-    		tmp = "目標LP回復通知時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
-    	            + "日" + cal.get(Calendar.HOUR_OF_DAY) + "時"
-    	            + cal.get(Calendar.MINUTE) + "分";
-    		}
-    		time.setText(tmp);
+    		MONTH = cal.get(Calendar.MONTH) + 1;
+    		DATE = cal.get(Calendar.DATE);
+    		HOUR_OF_DAY = cal.get(Calendar.HOUR_OF_DAY);
+    		HOUR = cal.get(Calendar.HOUR);
+    		MINUTE = cal.get(Calendar.MINUTE);
     		
-    		//プリファレンスに保存
-    		//プリファレンスの準備
-    		SharedPreferences pref = getSharedPreferences("saveTIME", MODE_PRIVATE);
-    		//Editorオブジェクト取得
-    		Editor editor = pref.edit();
-    		//TIMEというキーで最大LPを登録
-    		editor.putString("TIME", tmp);
-    		//書き込み
-    		editor.commit();
+    		SetResultTime();
     		
     		//設定した日時で発行するIntent生成
     		Intent intent = new Intent(this, Notifier04.class);
@@ -628,18 +563,50 @@ public class MainActivity extends Activity {
 		}
 	}
 	
+	public void SetResultTime(){
+		TextView Result = (TextView)findViewById(R.id.textView3);
+		String ResultTime;
+		SharedPreferences ampm = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean AMPM = ampm.getBoolean("AMPM", false);
+		if(AMPM == false){
+			ResultTime = "目標LP回復通知時刻は" + "\n" + "　　" + MONTH + "月" + DATE
+		            + "日" + HOUR_OF_DAY + "時"
+		            + MINUTE + "分";
+		}else{
+			ResultTime = "目標LP回復通知時刻は" + "\n" + "　　" + MONTH + "月" + DATE
+		            + "日" + am_pm + HOUR + "時"
+		            + MINUTE + "分";
+		}
+		Result.setText(ResultTime);
+		SharedPreferences pref = getSharedPreferences("saveTIME", MODE_PRIVATE);
+		pref.edit().putString("TIME", ResultTime).commit();
+	}
+	
 	public void Once(){
-		//デフォPreference
 		SharedPreferences DefPre = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean Once = DefPre.getBoolean("Once", false);
-		if(Once == false){
+		int VersionCode = DefPre.getInt("VersionCode", 11);
+		if(VersionCode <= 11){
 			stop(null);
 			DefPre.edit().clear().commit();
-			SharedPreferences saveEditText = getSharedPreferences("saveEditText", MODE_PRIVATE);
-			saveEditText.edit().clear().commit();
+			Toast.makeText(this, "アップデートしてから初回起動なので設定を初期化しました(初回のみ)", Toast.LENGTH_SHORT).show();
 			
-			DefPre.edit().putBoolean("Once", true).commit();
-			Toast.makeText(this, "アップデートしてから初回起動なので設定を初期化しました(初回のみ)", Toast.LENGTH_LONG).show();
+			AlertDialog.Builder builder = new AlertDialog.Builder(this)
+			.setTitle("協力お願いします！")
+			.setMessage("協力してほしいことがあります。\nみなさんのスマホで、このスクフェスタイマーがどのように表示されているのかを"
+					+ "確かめたいです。\nTwitterのアカウントを持っている人だけで良いのですが、LPをセットして通知を設定したところの"
+					+ "スクショ（LP回復時間が何時とか表示されているところ）を私のTwitterアカウント(@sugtao4423)に画像付きでツイートしてもらいたいです。"
+					+ "その際、ご自分の端末の機種が分かる方は、それを添えてツイートしていただけると幸いです。"
+					+ "\nご協力お願い致します。\n※私のTwitterアカウントへは設定画面の「✋(   ͡° ͜ʖ ͡° )ｱｯｼｪﾝﾃ」から飛べます。"
+					+ "\n\nこの内容は、設定画面の「ご協力お願います」からも見ることができます。")
+			.setPositiveButton("閉じる", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					return;
+				}
+			});
+			builder.create().show();
+			
+			DefPre.edit().putInt("VersionCode", 12).commit();
 		}
 	}
 	
