@@ -48,7 +48,7 @@ public class Notifier04 extends BroadcastReceiver {
 		//ステータスバーに表示されるtext
 		.setTicker("LP回復" + customLeftTime + "分前です")
 		//アイコン
-		.setSmallIcon(R.drawable.ic_launcher)
+		.setSmallIcon(R.drawable.ic_launcher_winter)
 		//Notificationを開いた時に表示されるタイトル
 		.setContentTitle("スクフェスタイマー")
 		//Notificationを開いた時に表示されるサブタイトル

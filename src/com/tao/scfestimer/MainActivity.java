@@ -1,7 +1,6 @@
 package com.tao.scfestimer;
 
 import java.util.Calendar;
-
 import com.google.analytics.tracking.android.EasyTracker;
 
 import android.app.Activity;
@@ -14,6 +13,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,11 +41,14 @@ public class MainActivity extends Activity {
 		loadTIME();
 		loadEditTextBoolean();
 		NotificationEnable();
+		startCountDown();
 	}
-	public int LeftLPTime;
-	public int MONTH, DATE, HOUR_OF_DAY, HOUR, MINUTE;
-	public String am_pm;
 	
+	public int LeftLPTime;
+	public int MONTH, DATE, HOUR_OF_DAY, HOUR, MINUTE, SECOND, ampm;
+	public long LeftLPSec;
+	public MyCountDownTimer cdt;
+
 	//アラーム開始
 	public void start(View v){
 		
@@ -84,22 +87,16 @@ public class MainActivity extends Activity {
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
     		
-    		switch(cal.get(Calendar.AM_PM)){
-			case 0:
-				am_pm = "午前";
-				break;
-			case 1:
-				am_pm = "午後";
-				break;
-			}
-    		
     		MONTH = cal.get(Calendar.MONTH) + 1;
     		DATE = cal.get(Calendar.DATE);
     		HOUR_OF_DAY = cal.get(Calendar.HOUR_OF_DAY);
     		HOUR = cal.get(Calendar.HOUR);
     		MINUTE = cal.get(Calendar.MINUTE);
+    		SECOND = cal.get(Calendar.SECOND);
+    		ampm = cal.get(Calendar.AM_PM);
     		
     		SetResultTime();
+    		startCountDown();
     		
     		//設定した日時で発行するIntent生成
     		Intent intent = new Intent(this, Notifier.class);
@@ -125,22 +122,16 @@ public class MainActivity extends Activity {
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
     		
-    		switch(cal.get(Calendar.AM_PM)){
-			case 0:
-				am_pm = "午前";
-				break;
-			case 1:
-				am_pm = "午後";
-				break;
-			}
-    		
     		MONTH = cal.get(Calendar.MONTH) + 1;
     		DATE = cal.get(Calendar.DATE);
     		HOUR_OF_DAY = cal.get(Calendar.HOUR_OF_DAY);
     		HOUR = cal.get(Calendar.HOUR);
     		MINUTE = cal.get(Calendar.MINUTE);
+    		SECOND = cal.get(Calendar.SECOND);
+    		ampm = cal.get(Calendar.AM_PM);
     		
     		SetResultTime();
+    		startCountDown();
     		
     		//設定した日時で発行するIntent生成
     		Intent intent = new Intent(this, Notifier02.class);
@@ -166,22 +157,16 @@ public class MainActivity extends Activity {
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
     		
-    		switch(cal.get(Calendar.AM_PM)){
-			case 0:
-				am_pm = "午前";
-				break;
-			case 1:
-				am_pm = "午後";
-				break;
-			}
-    		
     		MONTH = cal.get(Calendar.MONTH) + 1;
     		DATE = cal.get(Calendar.DATE);
     		HOUR_OF_DAY = cal.get(Calendar.HOUR_OF_DAY);
     		HOUR = cal.get(Calendar.HOUR);
     		MINUTE = cal.get(Calendar.MINUTE);
+    		SECOND = cal.get(Calendar.SECOND);
+    		ampm = cal.get(Calendar.AM_PM);
     		
     		SetResultTime();
+    		startCountDown();
     		
     		//設定した日時で発行するIntent生成
     		Intent intent = new Intent(this, Notifier03.class);
@@ -208,23 +193,17 @@ public class MainActivity extends Activity {
     		
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.MINUTE, LeftLPTime);
-    		
-    		switch(cal.get(Calendar.AM_PM)){
-			case 0:
-				am_pm = "午前";
-				break;
-			case 1:
-				am_pm = "午後";
-				break;
-			}
-    		
+ 
     		MONTH = cal.get(Calendar.MONTH) + 1;
     		DATE = cal.get(Calendar.DATE);
     		HOUR_OF_DAY = cal.get(Calendar.HOUR_OF_DAY);
     		HOUR = cal.get(Calendar.HOUR);
     		MINUTE = cal.get(Calendar.MINUTE);
+    		SECOND = cal.get(Calendar.SECOND);
+    		ampm = cal.get(Calendar.AM_PM);
     		
     		SetResultTime();
+    		startCountDown();
     		
     		//設定した日時で発行するIntent生成
     		Intent intent = new Intent(this, Notifier04.class);
@@ -255,6 +234,8 @@ public class MainActivity extends Activity {
 		cancel2();
 		cancel3();
 		cancel4();
+		//CDT関連
+		cancelCountDown();
 		
 		//プリファレンスの準備
 		SharedPreferences pref2 = getSharedPreferences("saveTIME", MODE_PRIVATE);
@@ -538,6 +519,9 @@ public class MainActivity extends Activity {
 		Editor edit = NotiPref.edit()
 				.putBoolean("NotiEnable", false);
 		edit.commit();
+		//countdowntimerストップ
+		SharedPreferences saveCalendar = getSharedPreferences("saveCalendar", MODE_PRIVATE);
+		saveCalendar.edit().putBoolean("CountDown", false).commit();
 		}
 	}
 	
@@ -565,39 +549,58 @@ public class MainActivity extends Activity {
 	
 	public void SetResultTime(){
 		TextView Result = (TextView)findViewById(R.id.textView3);
-		String ResultTime;
+		Spinner spinner = (Spinner)findViewById(R.id.spinner1);
+		int spi = spinner.getSelectedItemPosition();
+		String ResultTime, am_pm = null;
+		switch(ampm){
+		case 0:
+			am_pm = "午前";
+			break;
+		case 1:
+			am_pm = "午後";
+			break;
+		}
 		SharedPreferences ampm = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean AMPM = ampm.getBoolean("AMPM", false);
-		if(AMPM == false){
-			ResultTime = "目標LP回復通知時刻は" + "\n" + "　　" + MONTH + "月" + DATE
-		            + "日" + HOUR_OF_DAY + "時"
-		            + MINUTE + "分";
+		if(spi == 0){
+			if(AMPM == false){
+				ResultTime = "目標LP回復時刻は" + "\n" + "　　" + MONTH + "月" + DATE
+						+ "日" + HOUR_OF_DAY + "時"
+						+ MINUTE + "分";
+			}else{
+				ResultTime = "目標LP回復時刻は" + "\n" + "　　" + MONTH + "月" + DATE
+						+ "日" + am_pm + HOUR + "時"
+						+ MINUTE + "分";
+			}
 		}else{
-			ResultTime = "目標LP回復通知時刻は" + "\n" + "　　" + MONTH + "月" + DATE
-		            + "日" + am_pm + HOUR + "時"
-		            + MINUTE + "分";
+			if(AMPM == false){
+				ResultTime = "目標LP回復通知時刻は" + "\n" + "　　" + MONTH + "月" + DATE
+						+ "日" + HOUR_OF_DAY + "時"
+						+ MINUTE + "分";
+			}else{
+				ResultTime = "目標LP回復通知時刻は" + "\n" + "　　" + MONTH + "月" + DATE
+						+ "日" + am_pm + HOUR + "時"
+						+ MINUTE + "分";
+			}
 		}
 		Result.setText(ResultTime);
-		SharedPreferences pref = getSharedPreferences("saveTIME", MODE_PRIVATE);
-		pref.edit().putString("TIME", ResultTime).commit();
+		SharedPreferences saveTime = getSharedPreferences("saveTIME", MODE_PRIVATE);
+		saveTime.edit().putString("TIME", ResultTime).commit();
+		SharedPreferences saveCalendar = getSharedPreferences("saveCalendar", MODE_PRIVATE);
+		saveCalendar.edit()
+		.putInt("DATE", DATE).putInt("HOUR_OF_DAY", HOUR_OF_DAY).putInt("MINUTE", MINUTE).putInt("SECOND", SECOND)
+		.putBoolean("CountDown", true).commit();
 	}
 	
 	public void Once(){
 		SharedPreferences DefPre = PreferenceManager.getDefaultSharedPreferences(this);
-		int VersionCode = DefPre.getInt("VersionCode", 11);
-		if(VersionCode <= 11){
-			stop(null);
-			DefPre.edit().clear().commit();
-			Toast.makeText(this, "アップデートしてから初回起動なので設定を初期化しました(初回のみ)", Toast.LENGTH_SHORT).show();
-			
+		int VersionCode = DefPre.getInt("VersionCode", 12);
+		if(VersionCode <= 12){
 			AlertDialog.Builder builder = new AlertDialog.Builder(this)
-			.setTitle("協力お願いします！")
-			.setMessage("協力してほしいことがあります。\nみなさんのスマホで、このスクフェスタイマーがどのように表示されているのかを"
-					+ "確かめたいです。\nTwitterのアカウントを持っている人だけで良いのですが、LPをセットして通知を設定したところの"
-					+ "スクショ（LP回復時間が何時とか表示されているところ）を私のTwitterアカウント(@sugtao4423)に画像付きでツイートしてもらいたいです。"
-					+ "その際、ご自分の端末の機種が分かる方は、それを添えてツイートしていただけると幸いです。"
-					+ "\nご協力お願い致します。\n※私のTwitterアカウントへは設定画面の「✋(   ͡° ͜ʖ ͡° )ｱｯｼｪﾝﾃ」から飛べます。"
-					+ "\n\nこの内容は、設定画面の「ご協力お願います」からも見ることができます。")
+			.setTitle("アップデート！")
+			.setMessage("念願のアップデートです！\n残り時間表示を実装しました！\n"
+					+ "\nそれとアイコンを冬仕様に変更しました！\nThanks for @tsubasaneko83！\n"
+					+ "\nこれからもこのスクフェスタイマーをよろしくお願いします。")
 			.setPositiveButton("閉じる", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
@@ -606,8 +609,89 @@ public class MainActivity extends Activity {
 			});
 			builder.create().show();
 			
-			DefPre.edit().putInt("VersionCode", 12).commit();
+			DefPre.edit().putInt("VersionCode", 13).commit();
 		}
+	}
+	
+	public void LeftTime(){
+		SharedPreferences saveCalendar = getSharedPreferences("saveCalendar", MODE_PRIVATE);
+		int saveDate = saveCalendar.getInt("DATE", 0);
+		int saveHourOfDay = saveCalendar.getInt("HOUR_OF_DAY", 0);
+		int saveMinute = saveCalendar.getInt("MINUTE", 0);
+		int saveSecond = saveCalendar.getInt("SECOND", 0);
+		boolean CountDown = saveCalendar.getBoolean("CountDown", false);
+		
+		if(CountDown == true){
+		
+		Calendar cal = Calendar.getInstance();
+		int nowDate = cal.get(Calendar.DATE);
+		int nowHourOfDay = cal.get(Calendar.HOUR_OF_DAY);
+		int nowMinute = cal.get(Calendar.MINUTE);
+		int nowSecond = cal.get(Calendar.SECOND);
+		
+		cal.set(Calendar.DATE, saveDate);
+		cal.set(Calendar.HOUR_OF_DAY, saveHourOfDay);
+		cal.set(Calendar.MINUTE, saveMinute);
+		cal.set(Calendar.SECOND, saveSecond);
+		
+		cal.add(Calendar.DATE, -nowDate);
+		cal.add(Calendar.HOUR_OF_DAY, -nowHourOfDay);
+		cal.add(Calendar.MINUTE, -nowMinute);
+		cal.add(Calendar.SECOND, -nowSecond);
+		
+		int date = cal.get(Calendar.DATE);
+		int hourofday = cal.get(Calendar.HOUR_OF_DAY);
+		int minute = cal.get(Calendar.MINUTE);
+		int second = cal.get(Calendar.SECOND);
+		
+		if(date >= 10)
+			date = 0;
+		LeftLPSec = 1000 * (second + minute * 60 + hourofday * 3600 + date * 86400);
+		}
+	}
+	
+	public class MyCountDownTimer extends CountDownTimer{
+		public MyCountDownTimer(long millisInFuture, long countDownInterval) {
+			super(millisInFuture, countDownInterval);
+		}
+		TextView LeftTime = (TextView)findViewById(R.id.textView1);
+		@Override
+		public void onTick(long millisUntilFinished) {
+			Long hour = millisUntilFinished/1000/3600;
+			Long minute = millisUntilFinished/1000%3600/60;
+			Long second = millisUntilFinished/1000%60;
+			String Min = null;
+			String Sec = null;
+			if(minute <= 9)
+				Min = "0" + minute;
+			else
+				Min = String.valueOf(minute);
+			if(second <= 9)
+				Sec = "0" + second;
+			else
+				Sec = String.valueOf(second);
+			if(hour == 0)
+				LeftTime.setText("残り時間：" + Min + ":" + Sec);
+			else
+				LeftTime.setText("残り時間：" + hour + ":" + Min + ":" + Sec);
+		}
+		@Override
+		public void onFinish() {
+			LeftTime.setText("");
+		}
+	}
+	
+	public void startCountDown(){
+		LeftTime();
+		cdt = new MyCountDownTimer(LeftLPSec, 500);
+		cdt.start();
+	}
+	public void cancelCountDown(){
+		cdt.cancel();
+		SharedPreferences saveCalendar = getSharedPreferences("saveCalendar", MODE_PRIVATE);
+		saveCalendar.edit().putBoolean("CountDown", false).commit();
+		TextView LeftTime = (TextView)findViewById(R.id.textView1);
+		LeftTime.setText("");
 	}
 	
 	public void background(View v){

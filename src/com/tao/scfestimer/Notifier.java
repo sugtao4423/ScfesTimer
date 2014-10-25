@@ -46,7 +46,7 @@ public class Notifier extends BroadcastReceiver {
 				//ステータスバーに表示されるtext
 				.setTicker("LPが回復しました！")
 				//アイコン
-				.setSmallIcon(R.drawable.ic_launcher)
+				.setSmallIcon(R.drawable.ic_launcher_winter)
 				//Notificationを開いた時に表示されるタイトル
 				.setContentTitle("スクフェスタイマー")
 				//Notificationを開いた時に表示されるサブタイトル
