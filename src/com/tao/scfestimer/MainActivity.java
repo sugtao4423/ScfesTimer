@@ -38,7 +38,6 @@ public class MainActivity extends Activity {
 		//アナリティクスstart
 		EasyTracker.getInstance(this).activityStart(this);
 		loadLP();
-		loadTIME();
 		loadEditTextBoolean();
 		NotificationEnable();
 		startCountDown();
@@ -108,8 +107,6 @@ public class MainActivity extends Activity {
        		
     		//EditTextを入力不可にする
     		NoEditText();
-    		//設定項目を変えさせない
-    		DisableCheckBox();
     		    		
     		Toast.makeText(this, "LP回復時に通知します", Toast.LENGTH_SHORT).show();
         }
@@ -143,8 +140,6 @@ public class MainActivity extends Activity {
     		
     		//EditTextを入力不可にする
     		NoEditText();
-    		//設定項目を変えさせない
-    		DisableCheckBox();
     		
     		Toast.makeText(this, "LP回復5分前に通知します", Toast.LENGTH_SHORT).show();
         }
@@ -178,8 +173,6 @@ public class MainActivity extends Activity {
     		
     		//EditTextを入力不可にする
     		NoEditText();
-    		//設定項目を変えさせない
-    		DisableCheckBox();
     		
     		Toast.makeText(this, "LP回復10分前に通知します", Toast.LENGTH_SHORT).show();
         }
@@ -215,8 +208,6 @@ public class MainActivity extends Activity {
     		
     		//EditTextを入力不可にする
     		NoEditText();
-    		//設定項目を変えさせない
-    		DisableCheckBox();
     		
     		Toast.makeText(this, "LP回復" + customlefttime + "分前に通知します", Toast.LENGTH_SHORT).show();
         }
@@ -246,8 +237,7 @@ public class MainActivity extends Activity {
 		time.setText("");
 		//EditTextを入力可能にする
 		YesEditText();
-		//設定項目変更OK
-		EnableCheckBox();
+
 		Toast.makeText(this, "キャンセルしました", Toast.LENGTH_SHORT).show();
 	}
 	
@@ -325,6 +315,43 @@ public class MainActivity extends Activity {
 	            + cal.get(Calendar.MINUTE) + "分";
 		}
 	    time.setText(tmp);
+	    
+	    //残り時間
+	    Calendar cal2 = Calendar.getInstance();
+	  	int nowDate = cal2.get(Calendar.DATE);
+	 	int nowHourOfDay = cal2.get(Calendar.HOUR_OF_DAY);
+	  	int nowMinute = cal2.get(Calendar.MINUTE);
+	  	
+	  	cal2.set(Calendar.DATE, cal.get(Calendar.DATE));
+	  	cal2.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
+	  	cal2.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
+	  	
+	  	cal2.add(Calendar.DATE, -nowDate);
+	  	cal2.add(Calendar.HOUR_OF_DAY, -nowHourOfDay);
+	  	cal2.add(Calendar.MINUTE, -nowMinute);
+	  	
+	  	int date, hour, min;
+	  	String HOUR, MIN;
+	  	date = cal2.get(Calendar.DATE);
+	  	hour = cal2.get(Calendar.HOUR_OF_DAY);
+	  	min = cal2.get(Calendar.MINUTE);
+	  	if(date >= 10)
+	  		date = 0;
+	  	if(hour <= 9)
+	  		HOUR = "0" + hour;
+	  	else
+	  		HOUR = String.valueOf(hour);
+	  	if(min <= 9)
+	  		MIN = "0" + min;
+	  	else
+	  		MIN = String.valueOf(min);
+	  	
+	  	TextView left = (TextView)findViewById(R.id.textView1);
+	  	if(date == 0)
+	  		left.setText("残り時間：" + HOUR + ":" + MIN + ":00");
+	  	else
+	  		left.setText("残り時間：" + date + "日" + HOUR + ":" + MIN + ":00");
+	  	
 		}catch (Exception e){
 			Toast.makeText(getApplicationContext(), "ん？", Toast.LENGTH_SHORT).show();
 		}
@@ -361,14 +388,30 @@ public class MainActivity extends Activity {
 		NowLP.setText(NOW);
 	}
 	
-	
-	public void loadTIME(){
-		TextView time = (TextView)findViewById(R.id.textView3);
-		//プリファレンスの準備
-		SharedPreferences pref = getSharedPreferences("saveTIME", MODE_PRIVATE);
-		//TIMEというキーで保存されている値を読み出す
-		String Time = pref.getString("TIME", "");
-		time.setText(Time);
+	public void onResume(){
+		super.onResume();
+		TextView result = (TextView)findViewById(R.id.textView3);
+		SharedPreferences DefPref = PreferenceManager.getDefaultSharedPreferences(this);
+		SharedPreferences saveTime = getSharedPreferences("saveTIME", MODE_PRIVATE);
+		boolean ampm = DefPref.getBoolean("AMPM", false);
+		Spinner spinner = (Spinner)findViewById(R.id.spinner1);
+		int spi = spinner.getSelectedItemPosition();
+		String spi0, spi0ampm, spi1, spi1ampm;
+		spi0 = saveTime.getString("spi0", "");
+		spi0ampm = saveTime.getString("spi0ampm", "");
+		spi1 = saveTime.getString("spi1", "");
+		spi1ampm = saveTime.getString("spi1ampm", "");
+		if(spi == 0){
+			if(ampm == false)
+				result.setText(spi0);
+			else
+				result.setText(spi0ampm);
+		}else{
+			if(ampm == false)
+				result.setText(spi1);
+			else
+				result.setText(spi1ampm);
+		}
 	}
 	
 	public void clear(View v){
@@ -390,8 +433,6 @@ public class MainActivity extends Activity {
 		
 		//EditTextを入力可能にする
 		YesEditText();
-		//設定項目変更OK
-		EnableCheckBox();
 		
 		//EditText1へフォーカスを移動
 		NowLP.requestFocus();
@@ -494,26 +535,12 @@ public class MainActivity extends Activity {
 		spi.setEnabled(Spinner);
 		spi.setSelection(SpinnerItem);
 	}
-	
-	public void DisableCheckBox(){
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-		Editor edit = pref.edit()
-		.putBoolean("DisCheckBox", false);
-		edit.commit();
-	}
-	public void EnableCheckBox(){
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-		Editor edit = pref.edit()
-		.putBoolean("DisCheckBox", true);
-		edit.commit();
-	}
 
 	public void NotificationEnable(){
 		SharedPreferences NotiPref = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean NotiEnable = NotiPref.getBoolean("NotiEnable", false);
 		if(NotiEnable == true){
 		YesEditText();
-		EnableCheckBox();
 		
 		//trueだったものをfalseに書き換える
 		Editor edit = NotiPref.edit()
@@ -551,7 +578,7 @@ public class MainActivity extends Activity {
 		TextView Result = (TextView)findViewById(R.id.textView3);
 		Spinner spinner = (Spinner)findViewById(R.id.spinner1);
 		int spi = spinner.getSelectedItemPosition();
-		String ResultTime, am_pm = null;
+		String am_pm = null;
 		switch(ampm){
 		case 0:
 			am_pm = "午前";
@@ -561,35 +588,40 @@ public class MainActivity extends Activity {
 			break;
 		}
 		SharedPreferences ampm = PreferenceManager.getDefaultSharedPreferences(this);
+		SharedPreferences saveTime = getSharedPreferences("saveTIME", MODE_PRIVATE);
 		boolean AMPM = ampm.getBoolean("AMPM", false);
+		String spi0, spi0ampm, spi1, spi1ampm;
+		spi0 = "目標LP回復時刻は" + "\n" + "　　" + MONTH + "月" + DATE
+				+ "日" + HOUR_OF_DAY + "時"
+				+ MINUTE + "分";
+		spi0ampm = "目標LP回復時刻は" + "\n" + "　　" + MONTH + "月" + DATE
+				+ "日" + am_pm + HOUR + "時"
+				+ MINUTE + "分";
+		spi1 = "目標LP回復通知時刻は" + "\n" + "　　" + MONTH + "月" + DATE
+				+ "日" + HOUR_OF_DAY + "時"
+				+ MINUTE + "分";
+		spi1ampm = "目標LP回復通知時刻は" + "\n" + "　　" + MONTH + "月" + DATE
+				+ "日" + am_pm + HOUR + "時"
+				+ MINUTE + "分";
+		saveTime.edit().putString("spi0", spi0).putString("spi0ampm", spi0ampm).putString("spi1", spi1)
+		.putString("spi1ampm", spi1ampm).commit();
 		if(spi == 0){
 			if(AMPM == false){
-				ResultTime = "目標LP回復時刻は" + "\n" + "　　" + MONTH + "月" + DATE
-						+ "日" + HOUR_OF_DAY + "時"
-						+ MINUTE + "分";
+				Result.setText(spi0);
 			}else{
-				ResultTime = "目標LP回復時刻は" + "\n" + "　　" + MONTH + "月" + DATE
-						+ "日" + am_pm + HOUR + "時"
-						+ MINUTE + "分";
+				Result.setText(spi0ampm);
 			}
 		}else{
 			if(AMPM == false){
-				ResultTime = "目標LP回復通知時刻は" + "\n" + "　　" + MONTH + "月" + DATE
-						+ "日" + HOUR_OF_DAY + "時"
-						+ MINUTE + "分";
+				Result.setText(spi1);
 			}else{
-				ResultTime = "目標LP回復通知時刻は" + "\n" + "　　" + MONTH + "月" + DATE
-						+ "日" + am_pm + HOUR + "時"
-						+ MINUTE + "分";
+				Result.setText(spi1ampm);
 			}
 		}
-		Result.setText(ResultTime);
-		SharedPreferences saveTime = getSharedPreferences("saveTIME", MODE_PRIVATE);
-		saveTime.edit().putString("TIME", ResultTime).commit();
 		SharedPreferences saveCalendar = getSharedPreferences("saveCalendar", MODE_PRIVATE);
 		saveCalendar.edit()
-		.putInt("DATE", DATE).putInt("HOUR_OF_DAY", HOUR_OF_DAY).putInt("MINUTE", MINUTE).putInt("SECOND", SECOND)
-		.putBoolean("CountDown", true).commit();
+		.putInt("DATE", DATE).putInt("HOUR_OF_DAY", HOUR_OF_DAY).putInt("MINUTE", MINUTE)
+		.putInt("SECOND", SECOND).putBoolean("CountDown", true).commit();
 	}
 	
 	public void Once(){

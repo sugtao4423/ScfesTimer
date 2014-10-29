@@ -6,7 +6,6 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.DialogInterface.OnClickListener;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.widget.EditText;
 
 
@@ -35,19 +33,6 @@ public class MenuActivity extends PreferenceActivity {
 		public void onCreate(Bundle savedInstanceState){
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.preference);
-			
-			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-			boolean enable_prefs = pref.getBoolean("DisCheckBox", true);
-			
-			Preference sound_pref = findPreference("sound_preference");
-			Preference vibrate_pref = findPreference("vibrate_preference");
-			Preference led_pref = findPreference("led_preference");
-			Preference AMPM = findPreference("AMPM");
-			
-			sound_pref.setEnabled(enable_prefs);
-			vibrate_pref.setEnabled(enable_prefs);
-			led_pref.setEnabled(enable_prefs);
-			AMPM.setEnabled(enable_prefs);
 			
 			//作者Twitter垢飛ばす
 			Preference assyente = findPreference("assyente");
