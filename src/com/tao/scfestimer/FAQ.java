@@ -15,7 +15,7 @@ public class FAQ extends Activity {
 		EasyTracker.getInstance(this).activityStart(this);
 	}
 	public void back(View v){
-		Intent main = new Intent(this, MainActivity.class);
+		Intent main = new Intent(this, MenuActivity.class);
 		startActivity(main);
 		finish();
 	}

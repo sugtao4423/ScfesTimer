@@ -59,13 +59,13 @@ public class MenuActivity extends PreferenceActivity {
 				}
 				
 			});
-			//変更履歴に飛ばす
-			Preference update = findPreference("update");
+			//FAQに飛ばす
+			Preference update = findPreference("FAQ");
 			update.setOnPreferenceClickListener(new OnPreferenceClickListener(){
 
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
-					Intent intent = new Intent(getActivity(), Update.class);
+					Intent intent = new Intent(getActivity(), FAQ.class);
 					startActivity(intent);
 					return false;
 				}

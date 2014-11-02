@@ -16,7 +16,7 @@ public class Update extends Activity {
 	}
 	
 	public void back(View v){
-		Intent intent = new Intent(this, MenuActivity.class);
+		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 		finish();
 	}

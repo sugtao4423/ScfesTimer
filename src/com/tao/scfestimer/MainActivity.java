@@ -738,14 +738,11 @@ public class MainActivity extends Activity {
 		EasyTracker.getInstance(this).activityStop(this);
 	}
 	
-	private final int Menu1 = Menu.FIRST;
-	private final int Menu2 = Menu.FIRST + 1;
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		menu.add(Menu.NONE, Menu1, Menu.NONE, "設定");
-		menu.add(Menu.NONE, Menu2, Menu.NONE, "よくあるかもしれない質問など");
-		return super.onCreateOptionsMenu(menu);
+		getMenuInflater().inflate(R.menu.optionsmenu, menu);
+		return true;
 	}
 
 	@Override
@@ -754,13 +751,13 @@ public class MainActivity extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		switch (item.getItemId()){
-		case Menu1:
-			Intent menu = new Intent(this, MenuActivity.class);
-			startActivity(menu);
-			break;
-		case Menu2:
-			Intent menu2 = new Intent(this, FAQ.class);
-			startActivity(menu2);
+		case R.id.change:
+			Intent Change = new Intent(this, Update.class);
+			startActivity(Change);
+			return true;
+		case R.id.settings:
+			Intent Settings = new Intent(this, MenuActivity.class);
+			startActivity(Settings);
 			return true;
 		}
 		return false;

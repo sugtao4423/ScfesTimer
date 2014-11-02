@@ -49,9 +49,16 @@
         <string name="twitter">ﾄｩｲｯﾀｰ</string>
         <string name="nhi_">∩(´；ヮ；｀)∩ンヒィ～</string>
         <string name="icon_sakusya">アイコン作者のTwitter垢に飛ぶ（確信）</string>
-        <string name="update">変更履歴</string>
-        <string name="update_exp">バージョンアップでの変更点について</string>
         <string name="update_activity">
+            "バージョン2.2    11月3日公開"\n
+            ・設定などの項目を画面右上の「・・・」のボタンからアイコンに変更しました。\n
+            これに伴い、FAQは設定画面内へ、更新履歴がメイン画面のアイコンへと移りました。\n
+            \n
+            この2つのアイコンはまたまた翼猫に描いて頂きました！\n
+            （実はFAQのアイコンも描いて頂きましたが、使用しませんでした。Oh...sorry...）\n
+            \n
+            ーーーーーーーーーーーーーーーーー\n
+			\n 
             "バージョン2.1    10月29日公開"\n
             ・通知設定した後でも通知の設定をいじれるように変更しました。\n
             \n
@@ -190,5 +197,6 @@
 				\n
 				\n※私のTwitterアカウントへは\n"　"設定画面の「✋(   ͡° ͜ʖ ͡° )ｱｯｼｪﾝﾃ」から飛べます。
             </string>
+            <string name="update">更新履歴</string>
 
 </resources>
