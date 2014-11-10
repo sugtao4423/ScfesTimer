@@ -41,6 +41,7 @@ public class MainActivity extends Activity {
 		loadEditTextBoolean();
 		NotificationEnable();
 		startCountDown();
+		LPhealCalc();
 	}
 	
 	public int LeftLPTime;
@@ -107,7 +108,7 @@ public class MainActivity extends Activity {
        		
     		//EditTextを入力不可にする
     		NoEditText();
-    		    		
+    		SettingTime();
     		Toast.makeText(this, "LP回復時に通知します", Toast.LENGTH_SHORT).show();
         }
         if(spi==1){
@@ -140,7 +141,7 @@ public class MainActivity extends Activity {
     		
     		//EditTextを入力不可にする
     		NoEditText();
-    		
+    		SettingTime();
     		Toast.makeText(this, "LP回復5分前に通知します", Toast.LENGTH_SHORT).show();
         }
         if(spi==2){
@@ -173,7 +174,7 @@ public class MainActivity extends Activity {
     		
     		//EditTextを入力不可にする
     		NoEditText();
-    		
+    		SettingTime();
     		Toast.makeText(this, "LP回復10分前に通知します", Toast.LENGTH_SHORT).show();
         }
         if(spi==3){
@@ -208,7 +209,7 @@ public class MainActivity extends Activity {
     		
     		//EditTextを入力不可にする
     		NoEditText();
-    		
+    		SettingTime();
     		Toast.makeText(this, "LP回復" + customlefttime + "分前に通知します", Toast.LENGTH_SHORT).show();
         }
         }
@@ -626,22 +627,23 @@ public class MainActivity extends Activity {
 	
 	public void Once(){
 		SharedPreferences DefPre = PreferenceManager.getDefaultSharedPreferences(this);
-		int VersionCode = DefPre.getInt("VersionCode", 12);
-		if(VersionCode <= 12){
+		int VersionCode = DefPre.getInt("VersionCode", 15);
+		if(VersionCode <= 15){
 			AlertDialog.Builder builder = new AlertDialog.Builder(this)
 			.setTitle("アップデート！")
-			.setMessage("念願のアップデートです！\n残り時間表示を実装しました！\n"
-					+ "\nそれとアイコンを冬仕様に変更しました！\nThanks for @tsubasaneko83！\n"
-					+ "\nこれからもこのスクフェスタイマーをよろしくお願いします。")
-			.setPositiveButton("閉じる", new DialogInterface.OnClickListener() {
+			.setMessage("通知を設定しておくと、経過した時間に対してのLPが「現在のLP」に表示されるようになりました。\n\n"
+					+ "簡単に言えば、スクフェス自体の現在のLPが表示されてる。ということですはい。\n"
+					+ "（今までは通知設定したときのLPのままでした）\n\n"
+					+ "現在通知が設定されている場合、アプデしたのでそれをキャンセルしてください。")
+			.setPositiveButton("キャンセル", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					return;
+					clear(null);
 				}
 			});
 			builder.create().show();
 			
-			DefPre.edit().putInt("VersionCode", 13).commit();
+			DefPre.edit().putInt("VersionCode", 16).commit();
 		}
 	}
 	
@@ -724,6 +726,34 @@ public class MainActivity extends Activity {
 		saveCalendar.edit().putBoolean("CountDown", false).commit();
 		TextView LeftTime = (TextView)findViewById(R.id.textView1);
 		LeftTime.setText("");
+	}
+	
+	public void SettingTime(){
+		SharedPreferences SettingTime = getSharedPreferences("SettingTime", MODE_PRIVATE);
+		Calendar cal = Calendar.getInstance();
+		SettingTime.edit().putInt("Setting_DATE", cal.get(Calendar.DATE))
+		.putInt("Setting_HOUR_OF_DAY", cal.get(Calendar.HOUR_OF_DAY))
+		.putInt("Setting_MINUTE", cal.get(Calendar.MINUTE)).commit();
+	}
+	
+	public void LPhealCalc(){
+		SharedPreferences saveEditText = getSharedPreferences("saveEditText", MODE_PRIVATE);
+		if(saveEditText.getBoolean("start", true) == false){
+		SharedPreferences SettingTime = getSharedPreferences("SettingTime", MODE_PRIVATE);
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, -SettingTime.getInt("Setting_DATE", 0));
+		cal.add(Calendar.HOUR_OF_DAY, -SettingTime.getInt("Setting_HOUR_OF_DAY", 0));
+		cal.add(Calendar.MINUTE, -SettingTime.getInt("Setting_MINUTE", 0));
+		int result_DATE = cal.get(Calendar.DATE);
+		int result_HOUR_OF_DAY = cal.get(Calendar.HOUR_OF_DAY);
+		int result_MINUTE = cal.get(Calendar.MINUTE);
+		if(result_DATE > 10)
+			result_DATE = 0;
+		int FinalMINUTE = result_MINUTE + result_HOUR_OF_DAY * 60 + result_DATE * 1440;
+		EditText nowLP = (EditText)findViewById(R.id.NowLP);
+		int TotalLP = FinalMINUTE / 6 + Integer.parseInt(nowLP.getText().toString());
+		nowLP.setText(String.valueOf(TotalLP));
+		}
 	}
 	
 	public void background(View v){
