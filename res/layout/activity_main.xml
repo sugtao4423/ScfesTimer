@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/MaxLP"
         android:layout_toLeftOf="@+id/MaxLP"
-        android:text="目標LP"
+        android:text="@string/goal_LP"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="22sp" />
 
@@ -49,7 +49,7 @@
         android:layout_above="@+id/button2"
         android:layout_alignParentRight="true"
         android:onClick="check"
-        android:text="LP回復時間確認" />
+        android:text="@string/check_LP_recovery_time" />
 
     <Button
         android:id="@+id/button4"
@@ -58,7 +58,7 @@
         android:layout_above="@+id/button3"
         android:layout_alignParentRight="true"
         android:onClick="clear"
-        android:text="クリア" />
+        android:text="@string/clear" />
 
     <TextView
         android:id="@+id/textView3"
@@ -96,7 +96,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/NowLP"
         android:layout_alignRight="@+id/PrefText"
-        android:text="現在のLP"
+        android:text="@string/current_LP"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="22sp" />
 

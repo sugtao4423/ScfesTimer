@@ -1,5 +1,7 @@
 package com.tao.scfestimer;
 
+import java.util.Locale;
+
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -43,20 +45,32 @@ public class Notifier04 extends BroadcastReceiver {
 		}
 		
 		int customLeftTime = pref.getInt("customLeftTime", 0);
+		String ticker, title, text, open;
+		if(Locale.getDefault().toString().startsWith("ja")){
+			ticker = "LP回復"+ customLeftTime + "分前です！";
+			title = "スクフェスタイマー";
+			text = "LP回復" + customLeftTime + "分前です";
+			open = "スクフェスを開く";
+		}else{
+			ticker = "LP recovery " + customLeftTime + " minutes ago!";
+			title = "ScfesTimer";
+			text = "LP recovery " + customLeftTime +" minutes ago.";
+			open = "Open Scfes.";
+		}
 		
 		Notification noti = new NotificationCompat.Builder(content)
 		//ステータスバーに表示されるtext
-		.setTicker("LP回復" + customLeftTime + "分前です")
+		.setTicker(ticker)
 		//アイコン
 		.setSmallIcon(R.drawable.ic_launcher_winter)
 		//Notificationを開いた時に表示されるタイトル
-		.setContentTitle("スクフェスタイマー")
+		.setContentTitle(title)
 		//Notificationを開いた時に表示されるサブタイトル
-		.setContentText("LP回復" + customLeftTime + "分前です")
+		.setContentText(text)
 		//タップするとキャンセル
 		.setAutoCancel(true)
 		//スクフェスを起動するボタン追加
-		.addAction(R.drawable.scfes, "スクフェスを開く", Scfes)
+		.addAction(R.drawable.scfes, open, Scfes)
 		// 通知時の音・バイブ・ライト
 		.setDefaults(sound | vibrate | led)
 

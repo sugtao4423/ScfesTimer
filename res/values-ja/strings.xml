@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">ScfesTimer</string>
-    <string name="start">Done</string>
-    <string name="stop">Cancel</string>
-    <string name="goal_LP">Goal LP</string>
-    <string name="current_LP">Current LP</string>
-    <string name="full_notice">Full notification.</string>
-    <string name="minutes_before_notice">minute before notification.</string>
-    <string name="clear">Clear</string>
-    <string name="check_LP_recovery_time">Check LP recovery time</string>
-        <string name="setting">Settings</string>
-        <string name="notisetting">Notice　Setting</string>
-        <string name="vibe">Vibration</string>
-        <string name="vibe_exp">When notice, vibration.</string>
-        <string name="sound">Sound</string>
-        <string name="sound_exp">When notice, sound.</string>
+    <string name="app_name">スクフェスタイマー</string>
+    <string name="start">決定</string>
+    <string name="stop">キャンセル</string>
+    <string name="goal_LP">目標LP</string>
+    <string name="current_LP">現在のLP</string>
+    <string name="full_notice">満タン通知</string>
+    <string name="minutes_before_notice">分前通知</string>
+    <string name="clear">クリア</string>
+    <string name="check_LP_recovery_time">LP回復時間確認</string>
+        <string name="setting">設定</string>
+        <string name="notisetting">通知設定</string>
+        <string name="vibe">バイブレーション</string>
+        <string name="vibe_exp">通知時にあなたに会いたくて震えます</string>
+        <string name="sound">サウンド</string>
+        <string name="sound_exp">通知時に音が鳴り、あなただけではなく周りの人も気づくでしょう</string>
         <string name="led">LED</string>
-        <string name="led_exp">When notice, LED.</string>
-        <string name="FAQ">Frequently Asked Questions. (Japanese)</string>
+        <string name="led_exp">通知時にLEDを光らせてあなたに気づいてもらいたいアピールします</string>
+        <string name="FAQ">よくあるかもしれない質問など</string>
         <string name="explain">
             Q.ボタンとか灰色で押せないし入力もできないよ！\n
             A.クリアかキャンセルボタンを押せばできるようになると思います\n
@@ -49,10 +49,10 @@
             
         </string>
         <string name="assyen">✋(   ͡° ͜ʖ ͡° )ｱｯｼｪﾝﾃ</string>
-        <string name="sakusya">Authors Twitter Accounts.</string>
-        <string name="twitter">Twitter</string>
+        <string name="sakusya">作者のTwitter垢に飛ぶかもしれない可能性が微レ存</string>
+        <string name="twitter">ﾄｩｲｯﾀｰ</string>
         <string name="nhi_">∩(´；ヮ；｀)∩ンヒィ～</string>
-        <string name="icon_sakusya">Icon Authors Twitter Accounts.</string>
+        <string name="icon_sakusya">アイコン作者のTwitter垢に飛ぶ（確信）</string>
         <string name="update_activity">
             "バージョン2.4    12月21日公開"\n
             ・英語に対応させました。（日本語以外の言語で開くと英語で表示されます）\n
@@ -196,14 +196,14 @@
             "バージョン1.0    8月28日公開"\n
             ・初めて///のアプリ公開\n
         </string>
-        <string name="share">Share</string>
-        <string name="thisAppShare">Share this app with Twitter.</string>
-        <string name="thisAppShare_exp">The end of the letter is a link to the play store.</string>
-            <string name="AMPM">Show AM/PM</string>
-            <string name="AMPM_exp"></string>
-            <string name="HideFunction">HideFunction</string>
-            <string name="other">Other</string>
-            <string name="coop">Please cooperation. (Japanese)</string>
+        <string name="share">共有</string>
+        <string name="thisAppShare">Twitterでこのアプリを共有する</string>
+        <string name="thisAppShare_exp">末尾のアドレスはPlayストアへのリンクです</string>
+            <string name="AMPM">午前/午後表示</string>
+            <string name="AMPM_exp">こっちのほうがいいんダルルォ！？</string>
+            <string name="HideFunction">隠し機能</string>
+            <string name="other">その他</string>
+            <string name="coop">ご協力お願います</string>
             <string name="coop_activity">
                 ご協力お願います。\n
                 \nみなさんのスマホで、このスクフェスタイマーがどのように表示されているのかを確かめたいです。
@@ -216,6 +216,6 @@
 				\n
 				\n※私のTwitterアカウントへは\n"　"設定画面の「✋(   ͡° ͜ʖ ͡° )ｱｯｼｪﾝﾃ」から飛べます。
             </string>
-            <string name="update">Change log. (Japanese)</string>
-            <string name="remaining_time">Remaining time：</string>
+            <string name="update">更新履歴</string>
+            <string name="remaining_time">残り時間：</string>
 </resources>

@@ -1,6 +1,8 @@
 package com.tao.scfestimer;
 
 import java.util.Calendar;
+import java.util.Locale;
+
 import com.google.analytics.tracking.android.EasyTracker;
 
 import android.app.Activity;
@@ -12,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
@@ -76,7 +79,10 @@ public class MainActivity extends Activity {
         
         //if(目標LP≦現在LP)
         if(maxlp <= nowlp){
-        	Toast.makeText(this, "もう回復してるんですがそれは...", Toast.LENGTH_SHORT).show();
+        	if(Locale.getDefault().toString().startsWith("ja"))
+        		Toast.makeText(this, "もう回復してるんですがそれは...", Toast.LENGTH_SHORT).show();
+        	else
+        		Toast.makeText(this, "Already recovered", Toast.LENGTH_SHORT).show();
         }else{
         
         if(spi==0){
@@ -109,7 +115,10 @@ public class MainActivity extends Activity {
     		//EditTextを入力不可にする
     		NoEditText();
     		SettingTime();
-    		Toast.makeText(this, "LP回復時に通知します", Toast.LENGTH_SHORT).show();
+    		if(Locale.getDefault().toString().startsWith("ja"))
+    			Toast.makeText(this, "LP回復時に通知します", Toast.LENGTH_SHORT).show();
+    		else
+    			Toast.makeText(this, "Full notification", Toast.LENGTH_SHORT).show();
         }
         if(spi==1){
         	LeftLPTime = LeftLPTime - 5;
@@ -142,7 +151,10 @@ public class MainActivity extends Activity {
     		//EditTextを入力不可にする
     		NoEditText();
     		SettingTime();
-    		Toast.makeText(this, "LP回復5分前に通知します", Toast.LENGTH_SHORT).show();
+    		if(Locale.getDefault().toString().startsWith("ja"))
+    			Toast.makeText(this, "LP回復5分前に通知します", Toast.LENGTH_SHORT).show();
+    		else
+    			Toast.makeText(this, "5 minute before notification.", Toast.LENGTH_SHORT).show();
         }
         if(spi==2){
         	LeftLPTime = LeftLPTime - 10;
@@ -175,7 +187,10 @@ public class MainActivity extends Activity {
     		//EditTextを入力不可にする
     		NoEditText();
     		SettingTime();
-    		Toast.makeText(this, "LP回復10分前に通知します", Toast.LENGTH_SHORT).show();
+    		if(Locale.getDefault().toString().startsWith("ja"))
+    			Toast.makeText(this, "LP回復10分前に通知します", Toast.LENGTH_SHORT).show();
+    		else
+    			Toast.makeText(this, "10 minute before notification.", Toast.LENGTH_SHORT).show();
         }
         if(spi==3){
         	SharedPreferences DefPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -210,11 +225,17 @@ public class MainActivity extends Activity {
     		//EditTextを入力不可にする
     		NoEditText();
     		SettingTime();
-    		Toast.makeText(this, "LP回復" + customlefttime + "分前に通知します", Toast.LENGTH_SHORT).show();
+    		if(Locale.getDefault().toString().startsWith("ja"))
+    			Toast.makeText(this, "LP回復" + customlefttime + "分前に通知します", Toast.LENGTH_SHORT).show();
+    		else
+    			Toast.makeText(this, customlefttime + " minute before notification.", Toast.LENGTH_SHORT).show();
         }
         }
 		}catch (Exception e){
-			Toast.makeText(this, "ん？", Toast.LENGTH_SHORT).show();
+			if(Locale.getDefault().toString().startsWith("ja"))
+				Toast.makeText(this, "ん？", Toast.LENGTH_SHORT).show();
+			else
+				Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
 			stop(null);
 		}
 		saveLP();
@@ -238,8 +259,11 @@ public class MainActivity extends Activity {
 		time.setText("");
 		//EditTextを入力可能にする
 		YesEditText();
-
-		Toast.makeText(this, "キャンセルしました", Toast.LENGTH_SHORT).show();
+		
+		if(Locale.getDefault().toString().startsWith("ja"))
+			Toast.makeText(this, "キャンセルしました", Toast.LENGTH_SHORT).show();
+		else
+			Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show();
 	}
 	
 	public void cancel1(){
@@ -299,6 +323,7 @@ public class MainActivity extends Activity {
 		String tmp;
 		if(AMPM == true){
 			String am_pm = null;
+			if(Locale.getDefault().toString().startsWith("ja")){
 			switch(cal.get(Calendar.AM_PM)){
 			case 0:
 				am_pm = "午前";
@@ -307,13 +332,35 @@ public class MainActivity extends Activity {
 				am_pm = "午後";
 				break;
 			}
+			}else{
+				switch(cal.get(Calendar.AM_PM)){
+				case 0:
+					am_pm = "AM";
+					break;
+				case 1:
+					am_pm = "PM";
+					break;
+				}
+			}
+			if(Locale.getDefault().toString().startsWith("ja")){
 		tmp = "目標LP回復時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
 	            + "日" + am_pm + cal.get(Calendar.HOUR) + "時"
 	            + cal.get(Calendar.MINUTE) + "分";
+			}else{
+				tmp = "The goal LP recovery time" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DATE)
+			            + " " + cal.get(Calendar.HOUR) + ":"
+			            + cal.get(Calendar.MINUTE) + am_pm;
+			}
 		}else{
+			if(Locale.getDefault().toString().startsWith("ja")){
 		tmp = "目標LP回復時刻は" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "月" + cal.get(Calendar.DATE)
 	            + "日" + cal.get(Calendar.HOUR_OF_DAY) + "時"
 	            + cal.get(Calendar.MINUTE) + "分";
+			}else{
+				tmp = "The goal LP recovery time" + "\n" + "　　" + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DATE)
+			            + " " + cal.get(Calendar.HOUR_OF_DAY) + ":"
+			            + cal.get(Calendar.MINUTE);
+			}
 		}
 	    time.setText(tmp);
 	    
@@ -347,11 +394,12 @@ public class MainActivity extends Activity {
 	  	else
 	  		MIN = String.valueOf(min);
 	  	
+	  	Resources res = getResources();
 	  	TextView left = (TextView)findViewById(R.id.textView1);
 	  	if(date == 0)
-	  		left.setText("残り時間：" + HOUR + ":" + MIN + ":00");
+	  		left.setText(res.getString(R.string.remaining_time) + HOUR + ":" + MIN + ":00");
 	  	else
-	  		left.setText("残り時間：" + date + "日" + HOUR + ":" + MIN + ":00");
+	  		left.setText(res.getString(R.string.remaining_time) + date + "日" + HOUR + ":" + MIN + ":00");
 	  	
 		}catch (Exception e){
 			Toast.makeText(getApplicationContext(), "ん？", Toast.LENGTH_SHORT).show();
@@ -562,15 +610,17 @@ public class MainActivity extends Activity {
 		if(HideFunction == true){
 			int custom = pref.getInt("customLeftTime", 0);
 			String CUSTOM = String.valueOf(custom);
-			adapter.add("満タン通知");
-			adapter.add("5分前通知");
-			adapter.add("10分前通知");
-			adapter.add(CUSTOM + "分前通知");
+			Resources res = getResources();
+			adapter.add(res.getString(R.string.full_notice));
+			adapter.add("5 " + res.getString(R.string.minutes_before_notice));
+			adapter.add("10 " + res.getString(R.string.minutes_before_notice));
+			adapter.add(CUSTOM + " " + res.getString(R.string.minutes_before_notice));
 			spi.setAdapter(adapter);
 		}else{
-			adapter.add("満タン通知");
-			adapter.add("5分前通知");
-			adapter.add("10分前通知");
+			Resources res = getResources();
+			adapter.add(res.getString(R.string.full_notice));
+			adapter.add("5 " + res.getString(R.string.minutes_before_notice));
+			adapter.add("10 " + res.getString(R.string.minutes_before_notice));
 			spi.setAdapter(adapter);
 		}
 	}
@@ -580,6 +630,7 @@ public class MainActivity extends Activity {
 		Spinner spinner = (Spinner)findViewById(R.id.spinner1);
 		int spi = spinner.getSelectedItemPosition();
 		String am_pm = null;
+		if(Locale.getDefault().toString().startsWith("ja")){
 		switch(ampm){
 		case 0:
 			am_pm = "午前";
@@ -588,10 +639,22 @@ public class MainActivity extends Activity {
 			am_pm = "午後";
 			break;
 		}
+		}else{
+			switch(ampm){
+			case 0:
+				am_pm = "AM";
+				break;
+			case 1:
+				am_pm = "PM";
+				break;
+			}
+		}
+		
 		SharedPreferences ampm = PreferenceManager.getDefaultSharedPreferences(this);
 		SharedPreferences saveTime = getSharedPreferences("saveTIME", MODE_PRIVATE);
 		boolean AMPM = ampm.getBoolean("AMPM", false);
-		String spi0, spi0ampm, spi1, spi1ampm;
+		String spi0 = null, spi0ampm = null, spi1 = null, spi1ampm = null;
+		if(Locale.getDefault().toString().startsWith("ja")){
 		spi0 = "目標LP回復時刻は" + "\n" + "　　" + MONTH + "月" + DATE
 				+ "日" + HOUR_OF_DAY + "時"
 				+ MINUTE + "分";
@@ -604,6 +667,20 @@ public class MainActivity extends Activity {
 		spi1ampm = "目標LP回復通知時刻は" + "\n" + "　　" + MONTH + "月" + DATE
 				+ "日" + am_pm + HOUR + "時"
 				+ MINUTE + "分";
+		}else{
+			spi0 = "The goal LP recovery time" + "\n" + "　　" + MONTH + "/" + DATE
+					+ " " + HOUR_OF_DAY + ":"
+					+ MINUTE;
+			spi0ampm = "The goal LP recovery time" + "\n" + "　　" + MONTH + "/" + DATE
+					+ " " + HOUR + ":"
+					+ MINUTE + am_pm;
+			spi1 = "The goal LP recovery notice time" + "\n" + "　　" + MONTH + "/" + DATE
+					+ " " + HOUR_OF_DAY + ":"
+					+ MINUTE;
+			spi1ampm = "The goal LP recovery notice time" + "\n" + "　　" + MONTH + "/" + DATE
+					+ " " + HOUR + ":"
+					+ MINUTE + am_pm;
+		}
 		saveTime.edit().putString("spi0", spi0).putString("spi0ampm", spi0ampm).putString("spi1", spi1)
 		.putString("spi1ampm", spi1ampm).commit();
 		if(spi == 0){
@@ -627,14 +704,12 @@ public class MainActivity extends Activity {
 	
 	public void Once(){
 		SharedPreferences DefPre = PreferenceManager.getDefaultSharedPreferences(this);
-		int VersionCode = DefPre.getInt("VersionCode", 15);
-		if(VersionCode <= 15){
+		int VersionCode = DefPre.getInt("VersionCode", 16);
+		if(VersionCode <= 16){
+			if(Locale.getDefault().toString().startsWith("ja")){
 			AlertDialog.Builder builder = new AlertDialog.Builder(this)
 			.setTitle("アップデート！")
-			.setMessage("通知を設定しておくと、経過した時間に対してのLPが「現在のLP」に表示されるようになりました。\n\n"
-					+ "簡単に言えば、スクフェス自体の現在のLPが表示されてる。ということですはい。\n"
-					+ "（今までは通知設定したときのLPのままでした）\n\n"
-					+ "現在通知が設定されている場合、アプデしたのでそれをキャンセルしてください。")
+			.setMessage("英語に対応しました！\nそれだけですごめんなさい。\nアップデートしたので通知を設定している場合はキャンセルしてください。")
 			.setPositiveButton("キャンセル", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
@@ -642,8 +717,22 @@ public class MainActivity extends Activity {
 				}
 			});
 			builder.create().show();
-			
-			DefPre.edit().putInt("VersionCode", 16).commit();
+			}else{
+				AlertDialog.Builder builder = new AlertDialog.Builder(this)
+				.setTitle("Update!!")
+				.setMessage("Support English!!!!!!!!!!!!"
+						+ "\n\nPlease report to the review or authors Twitter if there is such a wrong translation."
+						+ "\n\nStill Change log and the FAQ is still in Japanese."
+						+ "\n\nIf have setting a notification, please cancel.")
+				.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						clear(null);
+					}
+				});
+				builder.create().show();
+			}
+			DefPre.edit().putInt("VersionCode", 17).commit();
 		}
 	}
 	
@@ -691,6 +780,7 @@ public class MainActivity extends Activity {
 		TextView LeftTime = (TextView)findViewById(R.id.textView1);
 		@Override
 		public void onTick(long millisUntilFinished) {
+			Resources res = getResources();
 			Long hour = millisUntilFinished/1000/3600;
 			Long minute = millisUntilFinished/1000%3600/60;
 			Long second = millisUntilFinished/1000%60;
@@ -705,9 +795,9 @@ public class MainActivity extends Activity {
 			else
 				Sec = String.valueOf(second);
 			if(hour == 0)
-				LeftTime.setText("残り時間：" + Min + ":" + Sec);
+				LeftTime.setText(res.getString(R.string.remaining_time) + Min + ":" + Sec);
 			else
-				LeftTime.setText("残り時間：" + hour + ":" + Min + ":" + Sec);
+				LeftTime.setText(res.getString(R.string.remaining_time) + hour + ":" + Min + ":" + Sec);
 		}
 		@Override
 		public void onFinish() {

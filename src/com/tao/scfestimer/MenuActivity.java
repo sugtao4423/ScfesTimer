@@ -1,5 +1,7 @@
 package com.tao.scfestimer;
 
+import java.util.Locale;
+
 import com.google.analytics.tracking.android.EasyTracker;
 
 import android.app.ActionBar;
@@ -88,10 +90,20 @@ public class MenuActivity extends PreferenceActivity {
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
 					final EditText EditTweet = new EditText(getActivity());
+					String Comment, tweet, cancel;
+					if(Locale.getDefault().toString().startsWith("ja")){
+						Comment = "コメントオナシャス！！";
+						tweet = "ツイート";
+						cancel = "キャンセル";
+					}else{
+						Comment = "Please Comment!";
+						tweet = "Tweet";
+						cancel = "Cancel";
+					}
 					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-					.setTitle("コメントオナシャス！！")
+					.setTitle(Comment)
 					.setView(EditTweet)
-					.setPositiveButton("ツイート", new OnClickListener(){
+					.setPositiveButton(tweet, new OnClickListener(){
 
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -106,7 +118,7 @@ public class MenuActivity extends PreferenceActivity {
 						}
 						}
 					});
-					builder.setNegativeButton("キャンセル", new OnClickListener(){
+					builder.setNegativeButton(cancel, new OnClickListener(){
 
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
