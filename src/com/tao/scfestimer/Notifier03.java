@@ -61,7 +61,7 @@ public class Notifier03 extends BroadcastReceiver {
 		//ステータスバーに表示されるtext
 		.setTicker(ticker)
 		//アイコン
-		.setSmallIcon(R.drawable.ic_launcher_winter)
+		.setSmallIcon(R.drawable.icon_2015_newyear)
 		//Notificationを開いた時に表示されるタイトル
 		.setContentTitle(title)
 		//Notificationを開いた時に表示されるサブタイトル

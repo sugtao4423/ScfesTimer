@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tao.scfestimer"
-    android:versionCode="17"
-    android:versionName="2.4" >
+    android:versionCode="18"
+    android:versionName="2.5" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -13,7 +13,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher_winter"
+        android:icon="@drawable/icon_2015_newyear"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity

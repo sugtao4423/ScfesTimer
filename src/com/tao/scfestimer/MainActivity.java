@@ -703,36 +703,33 @@ public class MainActivity extends Activity {
 	}
 	
 	public void Once(){
-		SharedPreferences DefPre = PreferenceManager.getDefaultSharedPreferences(this);
-		int VersionCode = DefPre.getInt("VersionCode", 16);
-		if(VersionCode <= 16){
+		final SharedPreferences DefPre = PreferenceManager.getDefaultSharedPreferences(this);
+		int VersionCode = DefPre.getInt("VersionCode", 17);
+		if(VersionCode <= 17){
 			if(Locale.getDefault().toString().startsWith("ja")){
 			AlertDialog.Builder builder = new AlertDialog.Builder(this)
 			.setTitle("アップデート！")
-			.setMessage("英語に対応しました！\nそれだけですごめんなさい。\nアップデートしたので通知を設定している場合はキャンセルしてください。")
-			.setPositiveButton("キャンセル", new DialogInterface.OnClickListener() {
+			.setMessage("アイコンをお正月バージョンに変更しました！\nThanks for @tsubasaneko83！")
+			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					clear(null);
+					DefPre.edit().putInt("VersionCode", 18).commit();
 				}
 			});
 			builder.create().show();
 			}else{
 				AlertDialog.Builder builder = new AlertDialog.Builder(this)
-				.setTitle("Update!!")
-				.setMessage("Support English!!!!!!!!!!!!"
-						+ "\n\nPlease report to the review or authors Twitter if there is such a wrong translation."
-						+ "\n\nStill Change log and the FAQ is still in Japanese."
-						+ "\n\nIf have setting a notification, please cancel.")
-				.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+				.setTitle("Update!")
+				.setMessage("Change icon A New Year Version!!\nThanks for @tsubasaneko83!!"
+						+ "\n\n'Hide Function' for english, coming soon...")
+				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						clear(null);
+						DefPre.edit().putInt("VersionCode", 18).commit();
 					}
 				});
 				builder.create().show();
 			}
-			DefPre.edit().putInt("VersionCode", 17).commit();
 		}
 	}
 	
