@@ -232,10 +232,7 @@ public class MainActivity extends Activity {
         }
         }
 		}catch (Exception e){
-			if(Locale.getDefault().toString().startsWith("ja"))
-				Toast.makeText(this, "ん？", Toast.LENGTH_SHORT).show();
-			else
-				Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
 			stop(null);
 		}
 		saveLP();
@@ -704,28 +701,34 @@ public class MainActivity extends Activity {
 	
 	public void Once(){
 		final SharedPreferences DefPre = PreferenceManager.getDefaultSharedPreferences(this);
-		int VersionCode = DefPre.getInt("VersionCode", 17);
-		if(VersionCode <= 17){
+		int VersionCode = DefPre.getInt("VersionCode", 18);
+		if(VersionCode <= 18){
 			if(Locale.getDefault().toString().startsWith("ja")){
 			AlertDialog.Builder builder = new AlertDialog.Builder(this)
 			.setTitle("アップデート！")
-			.setMessage("アイコンをお正月バージョンに変更しました！\nThanks for @tsubasaneko83！")
+			.setMessage("あけましておめでとうございます！！\n今年もよろしくお願い致します。"
+					+ "\n\n・一部の端末で画面のレイアウトが崩れる問題を解消"
+					+ "\n・「ご協力お願いします」項目の削除"
+					+ "\n・「よくあるかもしれない質問」の文章を少し変更"
+					+ "\n・隠し機能の英語版の実装"
+					+ "\n\nTwitterでレイアウトの改善に協力して頂いた方、ほんとうにありがとうございました。")
 			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					DefPre.edit().putInt("VersionCode", 18).commit();
+					DefPre.edit().putInt("VersionCode", 19).commit();
 				}
 			});
 			builder.create().show();
 			}else{
 				AlertDialog.Builder builder = new AlertDialog.Builder(this)
 				.setTitle("Update!")
-				.setMessage("Change icon A New Year Version!!\nThanks for @tsubasaneko83!!"
-						+ "\n\n'Hide Function' for english, coming soon...")
+				.setMessage("Fixed : Layout bug that occurred in the part of the terminal."
+						+ "\n\n\"Hide Function\", Implementation!"
+						+ "\nPlease enter the \"UUDDLRLRBA\" to comment after pressing the \"Share this app with Twitter\".")
 				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						DefPre.edit().putInt("VersionCode", 18).commit();
+						DefPre.edit().putInt("VersionCode", 19).commit();
 					}
 				});
 				builder.create().show();

@@ -50,10 +50,9 @@ public final class R {
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int coop=0x7f030001;
-        public static final int faq=0x7f030002;
-        public static final int hide_function=0x7f030003;
-        public static final int update=0x7f030004;
+        public static final int faq=0x7f030001;
+        public static final int hide_function=0x7f030002;
+        public static final int update=0x7f030003;
     }
     public static final class menu {
         public static final int optionsmenu=0x7f090000;
@@ -67,13 +66,30 @@ public final class R {
         public static final int assyen=0x7f050014;
         public static final int check_LP_recovery_time=0x7f050009;
         public static final int clear=0x7f050008;
-        public static final int coop=0x7f050021;
-        public static final int coop_activity=0x7f050022;
         public static final int current_LP=0x7f050005;
+        public static final int error=0x7f050035;
         public static final int explain=0x7f050013;
         public static final int full_notice=0x7f050006;
         public static final int ga_trackingId=0x7f050000;
         public static final int goal_LP=0x7f050004;
+        public static final int hide_function_LPof=0x7f050025;
+        public static final int hide_function_beforeMinute=0x7f050026;
+        public static final int hide_function_dialog_already_enabled=0x7f05002b;
+        public static final int hide_function_dialog_app_reboot=0x7f05002d;
+        public static final int hide_function_dialog_cancel=0x7f050034;
+        public static final int hide_function_dialog_disable=0x7f050033;
+        public static final int hide_function_dialog_doyoudisable=0x7f050031;
+        public static final int hide_function_dialog_enable=0x7f050029;
+        public static final int hide_function_dialog_enable_earlier=0x7f05002f;
+        public static final int hide_function_dialog_entry_beforeMinute=0x7f05002c;
+        public static final int hide_function_dialog_ifDisable_appReboot=0x7f050032;
+        public static final int hide_function_dialog_next___=0x7f05002a;
+        public static final int hide_function_dialog_not_enable=0x7f050030;
+        public static final int hide_function_dialog_reboot=0x7f05002e;
+        public static final int hide_function_enable=0x7f050024;
+        public static final int hide_function_entry=0x7f050027;
+        public static final int hide_function_invalidate=0x7f050028;
+        public static final int hide_function_layout_experience=0x7f050023;
         public static final int icon_sakusya=0x7f050018;
         public static final int led=0x7f050010;
         public static final int led_exp=0x7f050011;
@@ -81,7 +97,7 @@ public final class R {
         public static final int nhi_=0x7f050017;
         public static final int notisetting=0x7f05000b;
         public static final int other=0x7f050020;
-        public static final int remaining_time=0x7f050024;
+        public static final int remaining_time=0x7f050022;
         public static final int sakusya=0x7f050015;
         public static final int setting=0x7f05000a;
         public static final int share=0x7f05001a;
@@ -92,7 +108,7 @@ public final class R {
         public static final int thisAppShare=0x7f05001b;
         public static final int thisAppShare_exp=0x7f05001c;
         public static final int twitter=0x7f050016;
-        public static final int update=0x7f050023;
+        public static final int update=0x7f050021;
         public static final int update_activity=0x7f050019;
         public static final int vibe=0x7f05000c;
         public static final int vibe_exp=0x7f05000d;

@@ -13,7 +13,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:textSize="18sp"
-        android:text="LP回復通知を任意の分数の前に設定できるようになります\n有効化しますか？"
+        android:text="@string/hide_function_layout_experience"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
@@ -25,7 +25,7 @@
         android:layout_below="@+id/textView1"
         android:layout_marginTop="10dp"
         android:onClick="Enable"
-        android:text="有効化する" />
+        android:text="@string/hide_function_enable" />
 
     <TextView
         android:id="@+id/textView2"
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:text="LP回復の"
+        android:text="@string/hide_function_LPof"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
@@ -55,8 +55,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/HideFunction_time"
         android:layout_alignBottom="@+id/HideFunction_time"
+        android:layout_toLeftOf="@+id/button2"
         android:layout_toRightOf="@+id/HideFunction_time"
-        android:text="分前通知"
+        android:text="@string/hide_function_beforeMinute"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
@@ -66,7 +67,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:onClick="Sign"
-        android:text="登録" />
+        android:text="@string/hide_function_entry" />
 
     <Button
         android:id="@+id/button3"
@@ -77,6 +78,6 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp"
         android:onClick="Disable"
-        android:text="無効化する" />
+        android:text="@string/hide_function_invalidate" />
 
 </RelativeLayout>

@@ -29,8 +29,8 @@ public class HideFunction extends Activity {
 		if(pref.getBoolean("HideFunction", false) == false){
 		pref.edit().putBoolean("HideFunction", true).commit();
 		AlertDialog.Builder builder = new AlertDialog.Builder(this)
-		.setTitle("有効化されました！")
-		.setMessage("次にボタン下にあるフィールドに任意の分数を入力してください")
+		.setTitle(R.string.hide_function_dialog_enable)
+		.setMessage(R.string.hide_function_dialog_next___)
 		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -39,7 +39,7 @@ public class HideFunction extends Activity {
 		});
 		builder.create().show();
 		}else{
-			Toast.makeText(this, "もう有効化されてるんだよなぁ...", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.hide_function_dialog_already_enabled, Toast.LENGTH_SHORT).show();
 		}
 	}
 	
@@ -54,9 +54,10 @@ public class HideFunction extends Activity {
 			InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 			inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
 			AlertDialog.Builder builder = new AlertDialog.Builder(this)
-			.setTitle(customLeftTime + "分前で登録されました！")
-			.setMessage("アプリを再起動します")
-			.setPositiveButton("再起動", new DialogInterface.OnClickListener() {
+			.setTitle(String.valueOf(customLeftTime) + " " +
+					getResources().getString(R.string.hide_function_dialog_entry_beforeMinute))
+			.setMessage(R.string.hide_function_dialog_app_reboot)
+			.setPositiveButton(R.string.hide_function_dialog_reboot, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					finish();
@@ -65,12 +66,12 @@ public class HideFunction extends Activity {
 			});
 			builder.create().show();
 		}else{
-			Toast.makeText(this, "先に有効化してください", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.hide_function_dialog_enable_earlier, Toast.LENGTH_SHORT).show();
 			InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 			inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
 		}
 		}catch(Exception e){
-			Toast.makeText(this, "ん？", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
 		}
 	}
 	
@@ -79,12 +80,12 @@ public class HideFunction extends Activity {
 		final SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean HideFunction = pref.getBoolean("HideFunction", false);
 		if(HideFunction == false)
-			Toast.makeText(this, "有効化もされてないんですが...", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.hide_function_dialog_not_enable, Toast.LENGTH_SHORT).show();
 		else{
 			AlertDialog.Builder builder = new AlertDialog.Builder(this)
-			.setTitle("隠し機能を無効化しますか？")
-			.setMessage("無効化する場合、アプリを再起動します。")
-			.setPositiveButton("無効化", new DialogInterface.OnClickListener() {
+			.setTitle(R.string.hide_function_dialog_doyoudisable)
+			.setMessage(R.string.hide_function_dialog_ifDisable_appReboot)
+			.setPositiveButton(R.string.hide_function_dialog_disable, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					Editor editor = pref.edit();
@@ -93,7 +94,7 @@ public class HideFunction extends Activity {
 					android.os.Process.killProcess(android.os.Process.myPid());
 				}
 			})
-			.setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
+			.setNegativeButton(R.string.hide_function_dialog_cancel, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					return;
@@ -102,7 +103,7 @@ public class HideFunction extends Activity {
 			builder.create().show();
 		}
 		}catch(Exception e){
-			Toast.makeText(this, "ん？", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
 		}
 	}
 	

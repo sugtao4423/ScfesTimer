@@ -37,8 +37,6 @@
             今回初めてAndroidアプリを作りました。\n
             ﾌﾟﾖｸﾞﾗﾐﾝｸﾞも初心者です。\n
             いろいろ至らない部分もあると思いますが、ここをこうしたほうがいいとかこういうバグあったよ！などありましたらレビューに書いてください。\n
-            \n
-            ストアに上げるのもこれが初めてなので、レビューに書いてもらったほうがいいのか、それともメアド書いてそっちに送ってもらったほうがいいのかもわかっていないし、考えている状況です。\n
             \n\n\n\n
             最後までお読みいただきありがとうございました。\n
             バージョンアップとかある（と思う）のでこれからもよろしくお願いします。\n
@@ -54,6 +52,20 @@
         <string name="nhi_">∩(´；ヮ；｀)∩ンヒィ～</string>
         <string name="icon_sakusya">Icon Authors Twitter Accounts.</string>
         <string name="update_activity">
+            "バージョン2.5.5    2015年1月17日公開"\n
+            あけましておめでとうございます。\n
+            今年もよろしくお願い致します。\n
+            \n
+            ・アクションバーのアイコン画像がめちゃくちゃでかく表示されてしまう問題を解消\n
+            \n
+            ・「ご協力お願いします」の項目を削除\n
+            \n
+            ・「よくあるかもしれない質問」の文章を少し変更\n
+            \n
+            ・隠し機能の英語版の実装。\n
+            \n
+            ーーーーーーーーーーーーーーーーー\n
+            \n
             "バージョン2.5    12月29日公開"\n
             ・アイコンをお正月バージョンに変更しました！\n
             Thanks for @tsubasaneko83！\n
@@ -210,19 +222,25 @@
             <string name="AMPM_exp"></string>
             <string name="HideFunction">HideFunction</string>
             <string name="other">Other</string>
-            <string name="coop">Please cooperation. (Japanese)</string>
-            <string name="coop_activity">
-                ご協力お願います。\n
-                \nみなさんのスマホで、このスクフェスタイマーがどのように表示されているのかを確かめたいです。
-                \n
-                \nTwitterのアカウントを持っている人だけで良いのですが
-                \nLPをセットして通知を設定したところのスクショ（LP回復時間が何時とか表示されているところ）を
-                \n私のTwitterアカウント(@sugtao4423)に画像付きでツイートしてもらいたいです。
-				\nその際、ご自分の端末の機種が分かる方は、それを添えてツイートしていただけると幸いです。
-				\nご協力お願い致します。
-				\n
-				\n※私のTwitterアカウントへは\n"　"設定画面の「✋(   ͡° ͜ʖ ͡° )ｱｯｼｪﾝﾃ」から飛べます。
-            </string>
             <string name="update">Change log. (Japanese)</string>
             <string name="remaining_time">Remaining time：</string>
+            <string name="hide_function_layout_experience">The LP recovery notification you will be able to set before any minutes.\nDo you want to activate?</string>
+            <string name="hide_function_enable">activate</string>
+            <string name="hide_function_LPof"></string>
+            <string name="hide_function_beforeMinute">minutes before notification of LP recovery.</string>
+            <string name="hide_function_entry">entry</string>
+            <string name="hide_function_invalidate">invalidate</string>
+            <string name="hide_function_dialog_enable">Has been activated!</string>
+            <string name="hide_function_dialog_next___">Next, please enter any minutes in the field of under the button.</string>
+            <string name="hide_function_dialog_already_enabled">Already enabled.</string>
+            <string name="hide_function_dialog_entry_beforeMinute">minutes ago, registered.</string>
+            <string name="hide_function_dialog_app_reboot">I will re-launch the app.</string>
+            <string name="hide_function_dialog_reboot">Restart</string>
+            <string name="hide_function_dialog_enable_earlier">Please enable earlier.</string>
+            <string name="hide_function_dialog_not_enable">Not enabled.</string>
+            <string name="hide_function_dialog_doyoudisable">Disable the hide function?</string>
+            <string name="hide_function_dialog_ifDisable_appReboot">If you want to disable, restart the app.</string>
+            <string name="hide_function_dialog_disable">Disable</string>
+            <string name="hide_function_dialog_cancel">Cancel</string>
+            <string name="error">Error</string>
 </resources>

@@ -35,7 +35,6 @@
 		    android:summary="@string/thisAppShare_exp"
 		    android:key="share" />
 </PreferenceCategory><PreferenceCategory android:title="@string/other"><Preference android:title="@string/FAQ" android:key="FAQ" />
-    <Preference android:title="@string/coop" android:key="coop"/>
 </PreferenceCategory>
     
 

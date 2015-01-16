@@ -73,16 +73,6 @@ public class MenuActivity extends PreferenceActivity {
 				}
 				
 			});
-			//ご協力お願います
-			Preference coop = findPreference("coop");
-			coop.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-				@Override
-				public boolean onPreferenceClick(Preference preference) {
-					Intent intent = new Intent(getActivity(), Coop.class);
-					startActivity(intent);
-					return false;
-				}
-			});
 			//シェア
 			Preference share = findPreference("share");
 			share.setOnPreferenceClickListener(new OnPreferenceClickListener(){
@@ -109,7 +99,7 @@ public class MenuActivity extends PreferenceActivity {
 						public void onClick(DialogInterface dialog, int which) {
 							//ツイートボタン処理
 							String Tweet = EditTweet.getText().toString();
-							if(Tweet.matches(".*上上下下左右左右BA.*")){
+							if(Tweet.startsWith("上上下下左右左右BA") || Tweet.startsWith("UUDDLRLRBA")){
 								startActivity(new Intent(getActivity(), HideFunction.class));
 								}else{
 							String URL = "http://twitter.com/share?text=" + Tweet + " " + "http://bit.ly/1BfxIDl";

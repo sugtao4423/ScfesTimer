@@ -37,8 +37,6 @@
             今回初めてAndroidアプリを作りました。\n
             ﾌﾟﾖｸﾞﾗﾐﾝｸﾞも初心者です。\n
             いろいろ至らない部分もあると思いますが、ここをこうしたほうがいいとかこういうバグあったよ！などありましたらレビューに書いてください。\n
-            \n
-            ストアに上げるのもこれが初めてなので、レビューに書いてもらったほうがいいのか、それともメアド書いてそっちに送ってもらったほうがいいのかもわかっていないし、考えている状況です。\n
             \n\n\n\n
             最後までお読みいただきありがとうございました。\n
             バージョンアップとかある（と思う）のでこれからもよろしくお願いします。\n
@@ -54,6 +52,20 @@
         <string name="nhi_">∩(´；ヮ；｀)∩ンヒィ～</string>
         <string name="icon_sakusya">アイコン作者のTwitter垢に飛ぶ（確信）</string>
         <string name="update_activity">
+            "バージョン2.5.5    2015年1月17日公開"\n
+            あけましておめでとうございます。\n
+            今年もよろしくお願い致します。\n
+            \n
+            ・アクションバーのアイコン画像がめちゃくちゃでかく表示されてしまう問題を解消\n
+            \n
+            ・「ご協力お願いします」の項目を削除\n
+            \n
+            ・「よくあるかもしれない質問」の文章を少し変更\n
+            \n
+            ・隠し機能の英語版の実装。\n
+            \n
+            ーーーーーーーーーーーーーーーーー\n
+            \n
             "バージョン2.5    12月29日公開"\n
             ・アイコンをお正月バージョンに変更しました！\n
             Thanks for @tsubasaneko83！\n
@@ -210,19 +222,25 @@
             <string name="AMPM_exp">こっちのほうがいいんダルルォ！？</string>
             <string name="HideFunction">隠し機能</string>
             <string name="other">その他</string>
-            <string name="coop">ご協力お願います</string>
-            <string name="coop_activity">
-                ご協力お願います。\n
-                \nみなさんのスマホで、このスクフェスタイマーがどのように表示されているのかを確かめたいです。
-                \n
-                \nTwitterのアカウントを持っている人だけで良いのですが
-                \nLPをセットして通知を設定したところのスクショ（LP回復時間が何時とか表示されているところ）を
-                \n私のTwitterアカウント(@sugtao4423)に画像付きでツイートしてもらいたいです。
-				\nその際、ご自分の端末の機種が分かる方は、それを添えてツイートしていただけると幸いです。
-				\nご協力お願い致します。
-				\n
-				\n※私のTwitterアカウントへは\n"　"設定画面の「✋(   ͡° ͜ʖ ͡° )ｱｯｼｪﾝﾃ」から飛べます。
-            </string>
             <string name="update">更新履歴</string>
             <string name="remaining_time">残り時間：</string>
+            <string name="hide_function_layout_experience">LP回復通知を任意の分数の前に設定できるようになります\n有効化しますか？</string>
+            <string name="hide_function_enable">有効化する</string>
+            <string name="hide_function_LPof">LP回復の</string>
+            <string name="hide_function_beforeMinute">分前通知</string>
+            <string name="hide_function_entry">登録</string>
+            <string name="hide_function_invalidate">無効化する</string>
+            <string name="hide_function_dialog_enable">有効化されました！</string>
+            <string name="hide_function_dialog_next___">次にボタン下にあるフィールドに任意の分数を入力してください</string>
+            <string name="hide_function_dialog_already_enabled">もう有効化されてるんだよなぁ...</string>
+            <string name="hide_function_dialog_entry_beforeMinute">分前で登録されました！</string>
+            <string name="hide_function_dialog_app_reboot">アプリを再起動します</string>
+            <string name="hide_function_dialog_reboot">再起動</string>
+            <string name="hide_function_dialog_enable_earlier">先に有効化してください</string>
+            <string name="hide_function_dialog_not_enable">有効化もされてないんですが...</string>
+            <string name="hide_function_dialog_doyoudisable">隠し機能を無効化しますか？</string>
+            <string name="hide_function_dialog_ifDisable_appReboot">無効化する場合、アプリを再起動します。</string>
+            <string name="hide_function_dialog_disable">無効化</string>
+            <string name="hide_function_dialog_cancel">キャンセル</string>
+            <string name="error">ん？</string>
 </resources>
